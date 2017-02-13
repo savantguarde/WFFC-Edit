@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Renderer">
+      <UniqueIdentifier>{4fff9d67-902e-453d-a61d-4c0e87c30bab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MFC">
+      <UniqueIdentifier>{4fe10254-3d42-4cf6-a69b-c2130fb07e2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tool">
+      <UniqueIdentifier>{d7f2fe17-cf51-4850-b021-5c88dd261313}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SQLITE">
+      <UniqueIdentifier>{a006b0b6-46b2-4c4f-808a-ec8fe3e790eb}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="pch.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="DeviceResources.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="MFCMain.cpp">
+      <Filter>MFC</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="ToolMain.cpp">
+      <Filter>Tool</Filter>
+    </ClCompile>
+    <ClCompile Include="sqlite3.c">
+      <Filter>SQLITE</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneObject.cpp">
+      <Filter>Tool</Filter>
+    </ClCompile>
+    <ClCompile Include="ChunkObject.cpp">
+      <Filter>Tool</Filter>
+    </ClCompile>
+    <ClCompile Include="DisplayObject.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="MFCFrame.cpp">
+      <Filter>MFC</Filter>
+    </ClCompile>
+    <ClCompile Include="MFCRenderFrame.cpp">
+      <Filter>MFC</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DeviceResources.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="StepTimer.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="MFCMain.h">
+      <Filter>MFC</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="ToolMain.h">
+      <Filter>Tool</Filter>
+    </ClInclude>
+    <ClInclude Include="sqlite3.h">
+      <Filter>SQLITE</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneObject.h">
+      <Filter>Tool</Filter>
+    </ClInclude>
+    <ClInclude Include="ChunkObject.h">
+      <Filter>Tool</Filter>
+    </ClInclude>
+    <ClInclude Include="DisplayObject.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="InputCommands.h">
+      <Filter>Tool</Filter>
+    </ClInclude>
+    <ClInclude Include="MFCFrame.h">
+      <Filter>MFC</Filter>
+    </ClInclude>
+    <ClInclude Include="MFCRenderFrame.h">
+      <Filter>MFC</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Win32SimpleSample.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="toolbar1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="database\data\Scene1.fbx" />
+  </ItemGroup>
+</Project>
