@@ -26,5 +26,7 @@ public:
 	bool editor_render, editor_texture_vis;
 	bool editor_normals_vis, editor_pivot_vis;
 	float pivotX, pivotY, pivotZ;
+	bool snapToGround;
+	bool AINode;
 };
 
