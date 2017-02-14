@@ -2,39 +2,13 @@
 #include "resource.h"
 #include <vector>
 
-//SQL CALLBACKS
-//callback for loading the objects from the object table, into our sceneGraph
-
-/*static int callbackObjectLoad(void *data, int argc, char **argv, char **azColName)
-{
-	std::vector<SceneObject> * newPointerToObject;								//create a new pointer to a vector of scene objects, just like our scenegraph
-	newPointerToObject = static_cast<std::vector<SceneObject>*>(data);			//static cast this new pointer to the data pointer passed in here
-																				//its a void pointer so we have to do this static cast.
-	SceneObject newSceneObject;
-
-	//set all object attributes from database into temp scenegraph object
-	newSceneObject.ID = (int)argv[0];
-//	newSceneObject.chunk_ID = argv[1];
-	newSceneObject.model_path = argv[2];
-	newSceneObject.tex_diffuse_path = argv[3];
-
-	newSceneObject.posX = (float)argv[4];
-	newSceneObject.posY = (float)argv[5];
-	newSceneObject.posZ = (float)argv[6];
-	
-
-	//append scenegraph with the new object. 
-	newPointerToObject->push_back(newSceneObject);
-	return 0;
-}*/
-
-
 //ToolMain Class
 ToolMain::ToolMain()
 {
 //	m_sceneGraph = new std::vector<SceneObject>;	//initialise vector of scene objects. 
 	m_currentChunk = 0;		//default value
 	m_sceneGraph.clear();	//clear the vector for the scenegraph
+	m_databaseConnection = NULL;
 
 	//zero input commands
 	m_toolInputCommands.forward		= false;
@@ -121,8 +95,6 @@ void ToolMain::onActionLoad()
 		//send completed object to scenegraph
 		m_sceneGraph.push_back(newSceneObject);
 	}
-//	rc = sqlite3_exec(m_databaseConnection, sqlCommand, callbackObjectLoad, m_sceneGraph, &ErrMSG);
-	///SQL
 
 	//Process REsults into renderable
 	m_d3dRenderer.BuildDisplayList(&m_sceneGraph, &m_chunk);
@@ -131,6 +103,7 @@ void ToolMain::onActionLoad()
 
 void ToolMain::onActionSave()
 {
+	MessageBox(NULL, L"Save", L"Save", MB_OK);
 }
 
 void ToolMain::Tick(MSG *msg)
@@ -163,22 +136,6 @@ void ToolMain::UpdateInput(MSG * msg)
 
 	case WM_MOUSEMOVE:
 		break;
-
-	case WM_COMMAND:
-	{
-		int wmId = LOWORD(msg->wParam);
-		// Parse the menu selections:
-		switch (wmId)
-		{
-		case ID_FILE_QUIT:
-			MessageBox(msg->hwnd, L"Whatever", L"Whenever", MB_OK);
-			break;
-	
-		case ID_BUTTON40001:
-			MessageBox(msg->hwnd, L"Whatever", L"Whenever", MB_OK);
-			break;
-		}
-	}
 
 	}
 	//here we update all the actual app functionality that we want.  This information will either be used int toolmain, or sent down to the renderer (Camera movement etc

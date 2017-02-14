@@ -16,9 +16,6 @@ public:
 	~MFCMain();
 	BOOL InitInstance();
 	int  Run();
-//	int  OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO* pHandlerInfo);
-//	int  OnWndMsg(UINT message, WPARAM wParam, LPARAM lParam, LRESULT* pResult);
-//	afx_msg LRESULT OnMyCommand(WPARAM wParam, LPARAM lParam);
 
 private:
 
@@ -28,5 +25,10 @@ private:
 	
 	int m_width;		
 	int m_height;
+	
+	//Interface funtions for menu and toolbar etc requires
+	afx_msg void MenuFileQuit();
+	afx_msg	void ToolBarButton1();
+
 	DECLARE_MESSAGE_MAP()	// required macro for message map functionality  One per class
 };

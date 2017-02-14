@@ -5,7 +5,8 @@
 
 
 BEGIN_MESSAGE_MAP(MFCMain, CWinApp)
-	//ON_MESSAGE(WM_COMMAND, OnMyCommand)
+	ON_COMMAND(ID_FILE_QUIT,	&MFCMain::MenuFileQuit)
+	ON_COMMAND(ID_BUTTON40001,	&MFCMain::ToolBarButton1)
 END_MESSAGE_MAP()
 
 BOOL MFCMain::InitInstance()
@@ -72,28 +73,18 @@ int MFCMain::Run()
 
 	return (int)msg.wParam;
 }
-/*
-int MFCMain::OnCmdMsg(UINT nID, int nCode, void * pExtra, AFX_CMDHANDLERINFO * pHandlerInfo)
+
+void MFCMain::MenuFileQuit()
 {
-	AfxGetMainWnd()->SendMessage(WM_COMMAND, ID_FILE_OPEN, 0);
-	return 0;
-
-
-LRESULT MFCMain::OnMyCommand(WPARAM wParam, LPARAM lParam)
-{
-	// ... Handle message here
-	int commandId = LOWORD(wParam);
-
-	switch (commandId) {
-	case ID_BUTTON40001:
-		MessageBox(0, L"Hello there!", L"ID_HELLO_COMMAND", MB_OK);
-		break;
-		// ... other commands here
-	}
-
-	return 0L;
+	//will post message to the message thread that will exit the application normally
+	PostQuitMessage(0);
 }
-*/
+
+void MFCMain::ToolBarButton1()
+{
+	m_ToolSystem.onActionSave();
+}
+
 
 MFCMain::MFCMain()
 {

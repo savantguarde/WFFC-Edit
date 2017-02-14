@@ -2,11 +2,13 @@
 #include "resource.h"
 
 
-//IMPLEMENT_DYNAMIC(CMyFrame, CFrameWnd)
-
 
 BEGIN_MESSAGE_MAP(CMyFrame, CFrameWnd)
 	ON_WM_CREATE()
+//	ON_COMMAND(ID_BUTTON40001, CMyFrame.m_ToolSystem.OnActionSave)
+//	ON_COMMAND(ID_BUTTON40001, &CMyFrame::activate)
+//	ON_MESSAGE(WM_COMMAND, stuff)
+
 END_MESSAGE_MAP()
 
 static UINT indicators[] =
@@ -17,6 +19,21 @@ static UINT indicators[] =
 	ID_INDICATOR_SCRL,
 };
 //FRAME CLASS
+
+/*
+LRESULT CMyFrame::stuff(WPARAM wParam, LPARAM lParam)
+{
+	if (wParam == ID_BUTTON40001)
+	{
+		float temp = 0;
+	}
+	return 0L;
+}
+
+void CMyFrame::activate()
+{
+	float temp = 0;
+}*/
 
 //frame initialiser
 CMyFrame::CMyFrame()
