@@ -240,14 +240,14 @@ void Game::Render()
 		const XMVECTORF32 yaxis = { 0.f, 0.f, 512.f };
 		DrawGrid(xaxis, yaxis, g_XMZero, 512, 512, Colors::Gray);
 	}
-
+	//CAMERA POSITION ON HUD
 	m_sprites->Begin();
 	WCHAR   Buffer[256];
-	
 	std::wstring var = L"Cam X: " + std::to_wstring(m_camPosition.x) + L"Cam Z: " + std::to_wstring(m_camPosition.z);
 	m_font->DrawString(m_sprites.get(), var.c_str() , XMFLOAT2(100, 10), Colors::Yellow);
 	m_sprites->End();
 
+	//RENDER OBJECTS FROM SCENEGRAPH
 	int numRenderObjects = m_displayList.size();
 	for (int i = 0; i < numRenderObjects; i++)
 	{
@@ -268,6 +268,11 @@ void Game::Render()
 		m_deviceResources->PIXEndEvent();
 	}
     m_deviceResources->PIXEndEvent();
+
+	//RENDER TERRAIN
+
+
+
 
     // Show the new frame.
     m_deviceResources->Present();
@@ -396,12 +401,11 @@ void Game::BuildDisplayList(std::vector<SceneObject> * SceneGraph, ChunkObject *
 
 		//load model
 		std::wstring modelwstr = StringToWCHART(SceneGraph->at(i).model_path);							//convect string to Wchar
-	//	newDisplayObject.m_model = Model::CreateFromCMO(device, L"database/data/placeholder.cmo", *m_fxFactory, true);	//get DXSDK to load model "False" for LH coordinate system (maya)
 		newDisplayObject.m_model = Model::CreateFromCMO(device, modelwstr.c_str(), *m_fxFactory, true);	//get DXSDK to load model "False" for LH coordinate system (maya)
-//		newDisplayObject.m_model->meshes[0]->ccw = true;	//in case you need to flip 
+
 		
 		//Load Texture
-		std::wstring texturewstr = StringToWCHART(SceneGraph->at(i).tex_diffuse_path);							//convect string to Wchar
+		std::wstring texturewstr = StringToWCHART(SceneGraph->at(i).tex_diffuse_path);								//convect string to Wchar
 		HRESULT rs;
 		rs = CreateDDSTextureFromFile(device, texturewstr.c_str(), nullptr, &newDisplayObject.m_texture_diffuse);	//load tex into Shader resource
 
@@ -441,6 +445,33 @@ void Game::BuildDisplayList(std::vector<SceneObject> * SceneGraph, ChunkObject *
 		
 		
 		
+}
+
+void Game::BuildDisplayChunk(ChunkObject * SceneChunk)
+{
+	auto device = m_deviceResources->GetD3DDevice();
+	auto devicecontext = m_deviceResources->GetD3DDeviceContext();
+
+	HRESULT rs;
+	rs = CreateDDSTextureFromFile(device, L"database/data/Error.dds", nullptr, &m_displayChunk.m_heightmap);	//load tex into Shader resource			
+																												
+	m_displayChunk.m_terrainEffect = std::make_unique<BasicEffect>(device);
+	m_displayChunk.m_terrainEffect->SetVertexColorEnabled(true);	
+
+	void const* shaderByteCode;
+	size_t byteCodeLength;
+
+	m_displayChunk.m_terrainEffect->GetVertexShaderBytecode(&shaderByteCode, &byteCodeLength);
+
+	DX::ThrowIfFailed(
+		device->CreateInputLayout(VertexPositionColor::InputElements,
+			VertexPositionColor::InputElementCount,
+			shaderByteCode,
+			byteCodeLength,
+			m_displayChunk.m_terrainInputLayout.ReleaseAndGetAddressOf())
+		);
+
+	m_displayChunk.m_batch = std::make_unique<PrimitiveBatch<VertexPositionNormalTexture>>(devicecontext);
 }
 
 #ifdef DXTK_AUDIO

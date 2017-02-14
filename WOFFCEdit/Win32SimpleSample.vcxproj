@@ -167,6 +167,7 @@
   <ItemGroup>
     <ClCompile Include="ChunkObject.cpp" />
     <ClCompile Include="DeviceResources.cpp" />
+    <ClCompile Include="DisplayChunk.cpp" />
     <ClCompile Include="DisplayObject.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -181,6 +182,7 @@
   <ItemGroup>
     <ClInclude Include="ChunkObject.h" />
     <ClInclude Include="DeviceResources.h" />
+    <ClInclude Include="DisplayChunk.h" />
     <ClInclude Include="DisplayObject.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="InputCommands.h" />

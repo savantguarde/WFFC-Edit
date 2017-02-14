@@ -58,8 +58,6 @@ void ToolMain::onActionLoad()
 		m_sceneGraph.clear();		//if not, empty it
 	}
 
-	
-
 	//SQL
 	int rc;
 	char *sqlCommand;
@@ -75,8 +73,7 @@ void ToolMain::onActionLoad()
 	
 	//loop for each row in results until there are no more rows.  ie for every row in the results. We create and object
 	while (sqlite3_step(pResults) == SQLITE_ROW)
-	{
-	
+	{	
 		SceneObject newSceneObject;
 		newSceneObject.ID = sqlite3_column_int(pResults, 0);
 		newSceneObject.chunk_ID = sqlite3_column_int(pResults, 1);
@@ -98,6 +95,8 @@ void ToolMain::onActionLoad()
 
 	//Process REsults into renderable
 	m_d3dRenderer.BuildDisplayList(&m_sceneGraph, &m_chunk);
+	//build the renderable chunk 
+	m_d3dRenderer.BuildDisplayChunk(&m_chunk);
 
 }
 

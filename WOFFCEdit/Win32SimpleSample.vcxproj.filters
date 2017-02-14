@@ -53,6 +53,9 @@
     <ClCompile Include="MFCRenderFrame.cpp">
       <Filter>MFC</Filter>
     </ClCompile>
+    <ClCompile Include="DisplayChunk.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DeviceResources.h">
@@ -94,6 +97,9 @@
     </ClInclude>
     <ClInclude Include="MFCRenderFrame.h">
       <Filter>MFC</Filter>
+    </ClInclude>
+    <ClInclude Include="DisplayChunk.h">
+      <Filter>Renderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -9,6 +9,7 @@ public:
 	~ChunkObject();
 
 
+
 	int ID;
 	std::string name;
 	int chunk_x_size_metres;
@@ -23,6 +24,5 @@ public:
 	std::string tex_splat_4_path;
 	bool render_wireframe;
 	bool render_normals;
-
 };
 

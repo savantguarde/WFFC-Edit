@@ -8,6 +8,7 @@
 #include "StepTimer.h"
 #include "SceneObject.h"
 #include "DisplayObject.h"
+#include "DisplayChunk.h"
 #include "ChunkObject.h"
 #include "InputCommands.h"
 #include <vector>
@@ -45,7 +46,8 @@ public:
 	void OnWindowSizeChanged(int width, int height);
 
 	//tool specific
-	void BuildDisplayList(std::vector<SceneObject> * SceneGraph, ChunkObject *SceneChunk); //note vector passed by reference
+	void BuildDisplayList(std::vector<SceneObject> * SceneGraph, ChunkObject *SceneChunk); //note vector passed by reference //todo,  remove chunk  from this
+	void BuildDisplayChunk(ChunkObject *SceneChunk);
 	void ClearDisplayList();
 
 #ifdef DXTK_AUDIO
@@ -66,6 +68,7 @@ private:
 
 	//tool specific
 	std::vector<DisplayObject>			m_displayList;
+	DisplayChunk						m_displayChunk;
 	InputCommands						m_InputCommands;
 
 	//functionality
