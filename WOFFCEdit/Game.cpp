@@ -22,7 +22,7 @@ Game::Game()
 	
 	//initial Settings
 	//modes
-	m_grid = true;
+	m_grid = false;
 
 	//functional
 	m_movespeed = 0.30;
@@ -30,7 +30,7 @@ Game::Game()
 
 	//camera
 	m_camPosition.x = 0.0f;
-	m_camPosition.y = 0.7f;
+	m_camPosition.y = 3.7f;
 	m_camPosition.z = -3.5f;
 
 	m_camOrientation.x = 0;
@@ -188,6 +188,8 @@ void Game::Update(DX::StepTimer const& timer)
 
     m_batchEffect->SetView(m_view);
     m_batchEffect->SetWorld(Matrix::Identity);
+	m_displayChunk.m_terrainEffect->SetView(m_view);
+	m_displayChunk.m_terrainEffect->SetWorld(Matrix::Identity);
 
 #ifdef DXTK_AUDIO
     m_audioTimerAcc -= (float)timer.GetElapsedSeconds();
@@ -270,11 +272,16 @@ void Game::Render()
     m_deviceResources->PIXEndEvent();
 
 	//RENDER TERRAIN
+	context->OMSetBlendState(m_states->Opaque(), nullptr, 0xFFFFFFFF);
+	context->OMSetDepthStencilState(m_states->DepthDefault(),0);
+	context->RSSetState(m_states->CullNone());
+	
+	m_displayChunk.m_terrainEffect->Apply(context);
+	context->IASetInputLayout(m_displayChunk.m_terrainInputLayout.Get());
 
+	//Render the batch,  This is handled in the Display chunk becuase it has the potential to get complex
+	m_displayChunk.RenderBatch();
 
-
-
-    // Show the new frame.
     m_deviceResources->Present();
 }
 
@@ -456,7 +463,10 @@ void Game::BuildDisplayChunk(ChunkObject * SceneChunk)
 	rs = CreateDDSTextureFromFile(device, L"database/data/Error.dds", nullptr, &m_displayChunk.m_heightmap);	//load tex into Shader resource			
 																												
 	m_displayChunk.m_terrainEffect = std::make_unique<BasicEffect>(device);
-	m_displayChunk.m_terrainEffect->SetVertexColorEnabled(true);	
+	m_displayChunk.m_terrainEffect->EnableDefaultLighting();
+	m_displayChunk.m_terrainEffect->SetLightingEnabled(true);
+	m_displayChunk.m_terrainEffect->SetTextureEnabled(true);
+	m_displayChunk.m_terrainEffect->SetTexture(m_displayChunk.m_heightmap);
 
 	void const* shaderByteCode;
 	size_t byteCodeLength;
@@ -464,14 +474,16 @@ void Game::BuildDisplayChunk(ChunkObject * SceneChunk)
 	m_displayChunk.m_terrainEffect->GetVertexShaderBytecode(&shaderByteCode, &byteCodeLength);
 
 	DX::ThrowIfFailed(
-		device->CreateInputLayout(VertexPositionColor::InputElements,
-			VertexPositionColor::InputElementCount,
-			shaderByteCode,
-			byteCodeLength,
-			m_displayChunk.m_terrainInputLayout.ReleaseAndGetAddressOf())
+		device->CreateInputLayout(	VertexPositionNormalTexture::InputElements,
+									VertexPositionNormalTexture::InputElementCount,
+									shaderByteCode,
+									byteCodeLength,
+									m_displayChunk.m_terrainInputLayout.GetAddressOf())
 		);
 
+
 	m_displayChunk.m_batch = std::make_unique<PrimitiveBatch<VertexPositionNormalTexture>>(devicecontext);
+	m_displayChunk.m_terrainEffect->SetProjection(m_projection);
 }
 
 #ifdef DXTK_AUDIO
@@ -569,6 +581,7 @@ void Game::CreateWindowSizeDependentResources()
     );
 
     m_batchEffect->SetProjection(m_projection);
+	
 }
 
 void Game::OnDeviceLost()
