@@ -484,6 +484,7 @@ void Game::BuildDisplayChunk(ChunkObject * SceneChunk)
 
 	m_displayChunk.m_batch = std::make_unique<PrimitiveBatch<VertexPositionNormalTexture>>(devicecontext);
 	m_displayChunk.m_terrainEffect->SetProjection(m_projection);
+	m_displayChunk.InitialiseBatch();
 }
 
 #ifdef DXTK_AUDIO

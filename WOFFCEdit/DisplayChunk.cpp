@@ -8,6 +8,8 @@ DisplayChunk::DisplayChunk()
 {
 	//terrain size in meters. note that this is hard coded here, we COULD get it from the terrain chunk along with the other info from the tool if we want to be more flexible.
 	m_terrainSize = 512;
+	m_textureCoordStep = 1.0 / (TERRAINRESOLUTION-1);	//-1 becuase its split into chunks. not vertices.  we want tthe last one in each row to have tex coord 1
+	m_terrainPositionScalingFactor = m_terrainSize / TERRAINRESOLUTION;
 }
 
 
@@ -17,16 +19,15 @@ DisplayChunk::~DisplayChunk()
 
 void DisplayChunk::RenderBatch()
 {
-
 	m_batch->Begin();
 
-	VertexPositionNormalTexture v1(Vector3(-64.0f, 0.0f, 64.0f),	Vector3(0.0f, 1.0f, 0.0f),	Vector2(0.0f, 0.0f));
-	VertexPositionNormalTexture v2(Vector3(-64.0f, 0.0f, -64.0f),	Vector3(0.0f, 1.0f, 0.0f),	Vector2(0.0f, 1.0f));
-	VertexPositionNormalTexture v3(Vector3(64.0f, 0.0f, 64.0f),		Vector3(0.0f, 1.0f, 0.0f),	Vector2(1.0f, 0.0f));
-	VertexPositionNormalTexture v4(Vector3(64.0f, 0.0f, -64.0f),	Vector3(0.0f, 1.0f, 0.0f),	Vector2(1.0f, 1.0f));
-
-	m_batch->DrawTriangle(v1, v2, v3);
-
+	for (size_t i = 0; i < TERRAINRESOLUTION-1; i++)	//looping through QUADS.  so we subtrack one from the terrain array or it will try to draw a quad starting with the last vertex in each row. Which wont work
+	{
+		for (size_t j = 0; j < TERRAINRESOLUTION-1; j++)//same as above
+		{
+			m_batch->DrawQuad(m_terrainGeometry[i][j], m_terrainGeometry[i][j+1], m_terrainGeometry[i+1][j+1], m_terrainGeometry[i+1][j]); //bottom left bottom right, top right top left.
+		}
+	}
 	m_batch->End();
 }
 
@@ -38,9 +39,9 @@ void DisplayChunk::InitialiseBatch()
 	{
 		for (size_t j = 0; j < TERRAINRESOLUTION; j++)
 		{
-			m_terrainGeometry[i][j].position =			Vector3(i-(0.5*TERRAINRESOLUTION), 0.0f, j-(0.5*TERRAINRESOLUTION));	//This will create a terrain going from -64->64.  rather than 0->128.  So the center of the terrain is on the origin
+			m_terrainGeometry[i][j].position =			Vector3(j*m_terrainPositionScalingFactor-(0.5*m_terrainSize), 0.0f, i*m_terrainPositionScalingFactor-(0.5*m_terrainSize));	//This will create a terrain going from -64->64.  rather than 0->128.  So the center of the terrain is on the origin
 			m_terrainGeometry[i][j].normal =			Vector3(0.0f, 1.0f, 0.0f);						//standard y =up
-			m_terrainGeometry[i][j].textureCoordinate =	Vector2((float)1/i, (float)1/j);				//Spread tex coords so that its distributed evenly across the terrain from 0-1
+			m_terrainGeometry[i][j].textureCoordinate =	Vector2((float)m_textureCoordStep*j, (float)m_textureCoordStep*i);				//Spread tex coords so that its distributed evenly across the terrain from 0-1
 		}
 	}
 }
