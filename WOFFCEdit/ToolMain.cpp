@@ -77,7 +77,7 @@ void ToolMain::onActionLoad()
 		SceneObject newSceneObject;
 		newSceneObject.ID = sqlite3_column_int(pResults, 0);
 		newSceneObject.chunk_ID = sqlite3_column_int(pResults, 1);
-		newSceneObject.model_path = reinterpret_cast<const char*>(sqlite3_column_text(pResults, 2));
+		newSceneObject.model_path		= reinterpret_cast<const char*>(sqlite3_column_text(pResults, 2));
 		newSceneObject.tex_diffuse_path = reinterpret_cast<const char*>(sqlite3_column_text(pResults, 3));
 		newSceneObject.posX = sqlite3_column_double(pResults, 4);
 		newSceneObject.posY = sqlite3_column_double(pResults, 5);
@@ -88,6 +88,45 @@ void ToolMain::onActionLoad()
 		newSceneObject.scaX = sqlite3_column_double(pResults, 10);
 		newSceneObject.scaY = sqlite3_column_double(pResults, 11);
 		newSceneObject.scaZ = sqlite3_column_double(pResults, 12);
+		newSceneObject.render = sqlite3_column_double(pResults, 13);
+		newSceneObject.collision = sqlite3_column_double(pResults, 14);
+		newSceneObject.collision_mesh = reinterpret_cast<const char*>(sqlite3_column_text(pResults, 15));
+		newSceneObject.collectable = sqlite3_column_double(pResults, 16);
+		newSceneObject.destructable = sqlite3_column_double(pResults, 17);
+		newSceneObject.health_amount = sqlite3_column_double(pResults, 18);
+		newSceneObject.editor_render = sqlite3_column_double(pResults, 19);
+		newSceneObject.editor_texture_vis = sqlite3_column_double(pResults, 20);
+		newSceneObject.editor_normals_vis = sqlite3_column_double(pResults, 21);
+		newSceneObject.editor_collision_vis = sqlite3_column_double(pResults, 22);
+		newSceneObject.editor_pivot_vis = sqlite3_column_double(pResults, 23);
+		newSceneObject.pivotX = sqlite3_column_double(pResults, 24);
+		newSceneObject.pivotY = sqlite3_column_double(pResults, 25);
+		newSceneObject.pivotZ = sqlite3_column_double(pResults, 26);
+		newSceneObject.snapToGround = sqlite3_column_double(pResults, 27);
+		newSceneObject.AINode = sqlite3_column_double(pResults, 28);
+		newSceneObject.audio_path = reinterpret_cast<const char*>(sqlite3_column_text(pResults, 29));
+		newSceneObject.volume = sqlite3_column_double(pResults, 30);
+		newSceneObject.pitch = sqlite3_column_double(pResults, 31);
+		newSceneObject.pan = sqlite3_column_double(pResults, 32);
+		newSceneObject.one_shot = sqlite3_column_double(pResults, 33);
+		newSceneObject.play_on_init = sqlite3_column_double(pResults, 34);
+		newSceneObject.play_in_editor = sqlite3_column_double(pResults, 35);
+		newSceneObject.min_dist = sqlite3_column_double(pResults, 36);
+		newSceneObject.max_dist = sqlite3_column_double(pResults, 37);
+		newSceneObject.camera = sqlite3_column_double(pResults, 38);
+		newSceneObject.path_node = sqlite3_column_double(pResults, 39);
+		newSceneObject.path_node_start = sqlite3_column_double(pResults, 40);
+		newSceneObject.path_node_end = sqlite3_column_double(pResults, 41);
+		newSceneObject.parent_id = sqlite3_column_double(pResults, 42);
+		
+	
+		
+
+		bool camera;
+		bool path_node;
+		bool path_node_start;
+		bool path_node_end;
+		int parent_id;
 
 		//send completed object to scenegraph
 		m_sceneGraph.push_back(newSceneObject);
