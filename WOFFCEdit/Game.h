@@ -85,7 +85,7 @@ private:
 	//control variables
 	bool m_grid;							//grid rendering on / off
 	// Device resources.
-    std::unique_ptr<DX::DeviceResources>    m_deviceResources;
+    std::shared_ptr<DX::DeviceResources>    m_deviceResources;
 
     // Rendering loop timer.
     DX::StepTimer                           m_timer;

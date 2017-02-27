@@ -1,5 +1,6 @@
 #pragma once
 #include "pch.h"
+#include "DeviceResources.h"
 
 //geometric resoltuion - note,  hard coded.
 #define TERRAINRESOLUTION 128
@@ -9,8 +10,9 @@ class DisplayChunk
 public:
 	DisplayChunk();
 	~DisplayChunk();
-	void RenderBatch();
+	void RenderBatch(std::shared_ptr<DX::DeviceResources>  DevResources);
 	void InitialiseBatch();
+	void LoadHeightMap(std::shared_ptr<DX::DeviceResources>  DevResources, std::string *Heightmap);
 
 	std::unique_ptr<DirectX::PrimitiveBatch<DirectX::VertexPositionNormalTexture>>  m_batch;
 	std::unique_ptr<DirectX::BasicEffect>       m_terrainEffect;

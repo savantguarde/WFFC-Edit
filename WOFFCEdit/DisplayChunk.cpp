@@ -17,8 +17,13 @@ DisplayChunk::~DisplayChunk()
 {
 }
 
-void DisplayChunk::RenderBatch()
+void DisplayChunk::RenderBatch(std::shared_ptr<DX::DeviceResources>  DevResources)
 {
+	auto context = DevResources->GetD3DDeviceContext();
+
+	m_terrainEffect->Apply(context);
+	context->IASetInputLayout(m_terrainInputLayout.Get());
+
 	m_batch->Begin();
 
 	for (size_t i = 0; i < TERRAINRESOLUTION-1; i++)	//looping through QUADS.  so we subtrack one from the terrain array or it will try to draw a quad starting with the last vertex in each row. Which wont work
@@ -44,4 +49,35 @@ void DisplayChunk::InitialiseBatch()
 			m_terrainGeometry[i][j].textureCoordinate =	Vector2((float)m_textureCoordStep*j, (float)m_textureCoordStep*i);				//Spread tex coords so that its distributed evenly across the terrain from 0-1
 		}
 	}
+}
+
+void DisplayChunk::LoadHeightMap(std::shared_ptr<DX::DeviceResources>  DevResources, std::string * Heightmap)
+{
+	auto device = DevResources->GetD3DDevice();
+	auto devicecontext = DevResources->GetD3DDeviceContext();
+
+	HRESULT rs;
+	rs = CreateDDSTextureFromFile(device, L"database/data/Error.dds", nullptr, &m_heightmap);	//load tex into Shader resource			
+
+	m_terrainEffect = std::make_unique<BasicEffect>(device);
+	m_terrainEffect->EnableDefaultLighting();
+	m_terrainEffect->SetLightingEnabled(true);
+	m_terrainEffect->SetTextureEnabled(true);
+	m_terrainEffect->SetTexture(m_heightmap);
+
+	void const* shaderByteCode;
+	size_t byteCodeLength;
+
+	m_terrainEffect->GetVertexShaderBytecode(&shaderByteCode, &byteCodeLength);
+
+	DX::ThrowIfFailed(
+		device->CreateInputLayout(VertexPositionNormalTexture::InputElements,
+			VertexPositionNormalTexture::InputElementCount,
+			shaderByteCode,
+			byteCodeLength,
+			m_terrainInputLayout.GetAddressOf())
+		);
+
+	
+	m_batch = std::make_unique<PrimitiveBatch<VertexPositionNormalTexture>>(devicecontext);
 }

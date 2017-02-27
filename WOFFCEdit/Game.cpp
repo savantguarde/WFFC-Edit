@@ -265,7 +265,6 @@ void Game::Render()
 		XMMATRIX local = m_world * XMMatrixTransformation(g_XMZero, Quaternion::Identity, scale, g_XMZero, rotate, translate);
 
 		m_displayList[i].m_model->Draw(context, *m_states, local, m_view, m_projection, false);
-		//	m_model->Draw(context, *m_states, local, m_view, m_projection, false);
 
 		m_deviceResources->PIXEndEvent();
 	}
@@ -275,12 +274,9 @@ void Game::Render()
 	context->OMSetBlendState(m_states->Opaque(), nullptr, 0xFFFFFFFF);
 	context->OMSetDepthStencilState(m_states->DepthDefault(),0);
 	context->RSSetState(m_states->CullNone());
-	
-	m_displayChunk.m_terrainEffect->Apply(context);
-	context->IASetInputLayout(m_displayChunk.m_terrainInputLayout.Get());
 
 	//Render the batch,  This is handled in the Display chunk becuase it has the potential to get complex
-	m_displayChunk.RenderBatch();
+	m_displayChunk.RenderBatch(m_deviceResources);
 
     m_deviceResources->Present();
 }
@@ -456,33 +452,10 @@ void Game::BuildDisplayList(std::vector<SceneObject> * SceneGraph, ChunkObject *
 
 void Game::BuildDisplayChunk(ChunkObject * SceneChunk)
 {
-	auto device = m_deviceResources->GetD3DDevice();
-	auto devicecontext = m_deviceResources->GetD3DDeviceContext();
-
-	HRESULT rs;
-	rs = CreateDDSTextureFromFile(device, L"database/data/Error.dds", nullptr, &m_displayChunk.m_heightmap);	//load tex into Shader resource			
-																												
-	m_displayChunk.m_terrainEffect = std::make_unique<BasicEffect>(device);
-	m_displayChunk.m_terrainEffect->EnableDefaultLighting();
-	m_displayChunk.m_terrainEffect->SetLightingEnabled(true);
-	m_displayChunk.m_terrainEffect->SetTextureEnabled(true);
-	m_displayChunk.m_terrainEffect->SetTexture(m_displayChunk.m_heightmap);
-
-	void const* shaderByteCode;
-	size_t byteCodeLength;
-
-	m_displayChunk.m_terrainEffect->GetVertexShaderBytecode(&shaderByteCode, &byteCodeLength);
-
-	DX::ThrowIfFailed(
-		device->CreateInputLayout(	VertexPositionNormalTexture::InputElements,
-									VertexPositionNormalTexture::InputElementCount,
-									shaderByteCode,
-									byteCodeLength,
-									m_displayChunk.m_terrainInputLayout.GetAddressOf())
-		);
-
-
-	m_displayChunk.m_batch = std::make_unique<PrimitiveBatch<VertexPositionNormalTexture>>(devicecontext);
+	//todo get file from scenechunk and pass it through
+	
+	std::string temp = "";
+	m_displayChunk.LoadHeightMap(m_deviceResources, &temp);
 	m_displayChunk.m_terrainEffect->SetProjection(m_projection);
 	m_displayChunk.InitialiseBatch();
 }
