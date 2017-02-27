@@ -23,6 +23,10 @@ public:
 private:
 	
 	DirectX::VertexPositionNormalTexture m_terrainGeometry[TERRAINRESOLUTION][TERRAINRESOLUTION];
+	D3D11_TEXTURE2D_DESC m_desc;
+	ID3D11Texture2D		*m_pTexture;
+	ID3D11Resource		*m_pDstResource;
+	D3D11_MAPPED_SUBRESOURCE m_mappedResource;
 
 	int		m_terrainSize;				//size of terrain in metres
 	float	m_textureCoordStep;			//step in texture coordinates between each vertex row / column

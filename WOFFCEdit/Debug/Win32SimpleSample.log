@@ -1,14 +1,2 @@
 ﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(392,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (Win32SimpleSample.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  Game.cpp
-c:\programming\wffc-edit\woffcedit\game.cpp(28): warning C4305: '=': truncation from 'double' to 'float'
-c:\programming\wffc-edit\woffcedit\game.cpp(158): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\programming\wffc-edit\woffcedit\game.cpp(159): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\programming\wffc-edit\woffcedit\game.cpp(263): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\programming\wffc-edit\woffcedit\game.cpp(247): warning C4101: 'Buffer': unreferenced local variable
-  DisplayChunk.cpp
-c:\programming\wffc-edit\woffcedit\displaychunk.cpp(11): warning C4305: '=': truncation from 'double' to 'float'
-c:\programming\wffc-edit\woffcedit\displaychunk.cpp(12): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-c:\programming\wffc-edit\woffcedit\displaychunk.cpp(47): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-  Generating Code...
-cl : Command line warning D9028: minimal rebuild failure, reverting to normal build
   Win32SimpleSample.vcxproj -> C:\programming\WFFC-Edit\WOFFCEdit\Debug\WoFEdit.exe

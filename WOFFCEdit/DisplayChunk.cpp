@@ -10,6 +10,21 @@ DisplayChunk::DisplayChunk()
 	m_terrainSize = 512;
 	m_textureCoordStep = 1.0 / (TERRAINRESOLUTION-1);	//-1 becuase its split into chunks. not vertices.  we want tthe last one in each row to have tex coord 1
 	m_terrainPositionScalingFactor = m_terrainSize / TERRAINRESOLUTION;
+
+	//texture info
+	m_desc.Width = 256;
+	m_desc.Height = 256;
+	m_desc.MipLevels = m_desc.ArraySize = 1;
+	m_desc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+	m_desc.SampleDesc.Count = 1;
+	m_desc.Usage = D3D11_USAGE_DYNAMIC;
+	m_desc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
+	m_desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+	m_desc.MiscFlags = 0;
+
+	m_pTexture = NULL;
+	m_pDstResource = NULL;
+
 }
 
 
@@ -25,7 +40,6 @@ void DisplayChunk::RenderBatch(std::shared_ptr<DX::DeviceResources>  DevResource
 	context->IASetInputLayout(m_terrainInputLayout.Get());
 
 	m_batch->Begin();
-
 	for (size_t i = 0; i < TERRAINRESOLUTION-1; i++)	//looping through QUADS.  so we subtrack one from the terrain array or it will try to draw a quad starting with the last vertex in each row. Which wont work
 	{
 		for (size_t j = 0; j < TERRAINRESOLUTION-1; j++)//same as above
@@ -57,7 +71,10 @@ void DisplayChunk::LoadHeightMap(std::shared_ptr<DX::DeviceResources>  DevResour
 	auto devicecontext = DevResources->GetD3DDeviceContext();
 
 	HRESULT rs;
-	rs = CreateDDSTextureFromFile(device, L"database/data/Error.dds", nullptr, &m_heightmap);	//load tex into Shader resource			
+//	rs = CreateDDSTextureFromFile(device, L"database/data/Error.dds", &m_pDstResource, &m_heightmap);	//load tex into Shader resource	view and resource
+
+	//new and improved!  oh yes.
+	rs = CreateDDSTextureFromFileEx(device, L"database/data/Error.dds", 0, D3D11_USAGE_DYNAMIC, D3D11_BIND_SHADER_RESOURCE, D3D11_CPU_ACCESS_WRITE,0,false, &m_pDstResource, &m_heightmap);	//load tex into Shader resource	view and resource
 
 	m_terrainEffect = std::make_unique<BasicEffect>(device);
 	m_terrainEffect->EnableDefaultLighting();
@@ -77,7 +94,9 @@ void DisplayChunk::LoadHeightMap(std::shared_ptr<DX::DeviceResources>  DevResour
 			byteCodeLength,
 			m_terrainInputLayout.GetAddressOf())
 		);
-
-	
 	m_batch = std::make_unique<PrimitiveBatch<VertexPositionNormalTexture>>(devicecontext);
+
+	device->CreateTexture2D(&m_desc, NULL, &m_pTexture);
+//	devicecontext->Map(m_pDstResource, 0, D3D11_MAP_READ, 0, &m_mappedResource);
+//	devicecontext->Unmap(m_pDstResource, 0);
 }
