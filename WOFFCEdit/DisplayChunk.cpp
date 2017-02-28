@@ -24,6 +24,8 @@ DisplayChunk::DisplayChunk()
 
 	m_pTexture = NULL;
 	m_pDstResource = NULL;
+	m_heightmapInitialLoading = NULL;
+	m_heightmap = NULL;
 
 }
 
@@ -71,10 +73,22 @@ void DisplayChunk::LoadHeightMap(std::shared_ptr<DX::DeviceResources>  DevResour
 	auto devicecontext = DevResources->GetD3DDeviceContext();
 
 	HRESULT rs;
-//	rs = CreateDDSTextureFromFile(device, L"database/data/Error.dds", &m_pDstResource, &m_heightmap);	//load tex into Shader resource	view and resource
+//	rs = CreateDDSTextureFromFileEx(device, L"database/data/Error.dds", NULL, &m_heightmapInitialLoading);	//load tex into Shader resource	view and resource
+	
+	rs = CreateDDSTextureFromFileEx(device, L"database/data/Error.dds", 0, D3D11_USAGE_DEFAULT, D3D11_BIND_SHADER_RESOURCE, D3D11_CPU_ACCESS_READ, 0, false, NULL, &m_heightmapInitialLoading);	//load tex into Shader resource	view and resource
 
 	//new and improved!  oh yes.
-	rs = CreateDDSTextureFromFileEx(device, L"database/data/Error.dds", 0, D3D11_USAGE_DYNAMIC, D3D11_BIND_SHADER_RESOURCE, D3D11_CPU_ACCESS_WRITE,0,false, &m_pDstResource, &m_heightmap);	//load tex into Shader resource	view and resource
+ 	rs = CreateDDSTextureFromFileEx(device, L"database/data/Error.dds", 0, D3D11_USAGE_DYNAMIC, D3D11_BIND_SHADER_RESOURCE, D3D11_CPU_ACCESS_WRITE,0,false, NULL, &m_heightmap);	//load tex into Shader resource	view and resource
+
+	m_heightmapInitialLoading->GetResource(&m_pDstResource);
+	devicecontext->Map(m_pDstResource, 0, D3D11_MAP_READ, 0, &m_mappedResource);
+	UCHAR* pTexels = (UCHAR*)m_mappedResource.pData;
+
+//	devicecontext->Unmap(m_pDstResource, 0);
+
+
+	device->CreateTexture2D(&m_desc, NULL, &m_pTexture);
+
 
 	m_terrainEffect = std::make_unique<BasicEffect>(device);
 	m_terrainEffect->EnableDefaultLighting();
@@ -96,7 +110,10 @@ void DisplayChunk::LoadHeightMap(std::shared_ptr<DX::DeviceResources>  DevResour
 		);
 	m_batch = std::make_unique<PrimitiveBatch<VertexPositionNormalTexture>>(devicecontext);
 
-	device->CreateTexture2D(&m_desc, NULL, &m_pTexture);
-//	devicecontext->Map(m_pDstResource, 0, D3D11_MAP_READ, 0, &m_mappedResource);
+
+	
+
+//	devicecontext->Map(m_pDstResource, 0, D3D11_MAP_WRITE_DISCARD, 0, &m_mappedResource);
+//	m_mappedResource.pData
 //	devicecontext->Unmap(m_pDstResource, 0);
 }
