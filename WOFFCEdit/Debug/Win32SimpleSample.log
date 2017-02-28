@@ -1,6 +1,2 @@
 ﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(392,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (Win32SimpleSample.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  DisplayChunk.cpp
-d:\mydocs\development\wffc-edit\woffcedit\displaychunk.cpp(11): warning C4305: '=': truncation from 'double' to 'float'
-d:\mydocs\development\wffc-edit\woffcedit\displaychunk.cpp(12): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-d:\mydocs\development\wffc-edit\woffcedit\displaychunk.cpp(63): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
   Win32SimpleSample.vcxproj -> D:\mydocs\Development\WFFC-Edit\WOFFCEdit\Debug\WoFEdit.exe

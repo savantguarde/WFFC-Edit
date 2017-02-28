@@ -6,6 +6,7 @@
 
 BEGIN_MESSAGE_MAP(MFCMain, CWinApp)
 	ON_COMMAND(ID_FILE_QUIT,	&MFCMain::MenuFileQuit)
+	ON_COMMAND(ID_FILE_SAVETERRAIN, &MFCMain::MenuFileSaveTerrain)
 	ON_COMMAND(ID_BUTTON40001,	&MFCMain::ToolBarButton1)
 END_MESSAGE_MAP()
 
@@ -78,6 +79,11 @@ void MFCMain::MenuFileQuit()
 {
 	//will post message to the message thread that will exit the application normally
 	PostQuitMessage(0);
+}
+
+void MFCMain::MenuFileSaveTerrain()
+{
+	m_ToolSystem.onActionSaveTerrain();
 }
 
 void MFCMain::ToolBarButton1()

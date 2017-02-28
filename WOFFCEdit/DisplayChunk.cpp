@@ -9,24 +9,7 @@ DisplayChunk::DisplayChunk()
 	//terrain size in meters. note that this is hard coded here, we COULD get it from the terrain chunk along with the other info from the tool if we want to be more flexible.
 	m_terrainSize = 512;
 	m_textureCoordStep = 1.0 / (TERRAINRESOLUTION-1);	//-1 becuase its split into chunks. not vertices.  we want tthe last one in each row to have tex coord 1
-	m_terrainPositionScalingFactor = m_terrainSize / TERRAINRESOLUTION;
-
-	//texture info
-	m_desc.Width = 256;
-	m_desc.Height = 256;
-	m_desc.MipLevels = m_desc.ArraySize = 1;
-	m_desc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
-	m_desc.SampleDesc.Count = 1;
-	m_desc.Usage = D3D11_USAGE_DYNAMIC;
-	m_desc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
-	m_desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-	m_desc.MiscFlags = 0;
-
-	m_pTexture = NULL;
-	m_pDstResource = NULL;
-	m_heightmapInitialLoading = NULL;
-	m_heightmap = NULL;
-
+	m_terrainPositionScalingFactor = m_terrainSize / (TERRAINRESOLUTION-1);
 }
 
 
@@ -56,15 +39,21 @@ void DisplayChunk::InitialiseBatch()
 {
 	//build geometry for our terrain array
 	//iterate through all the vertices of our required resolution terrain.
+	int index = 0;
+
 	for (size_t i = 0; i < TERRAINRESOLUTION; i++)
 	{
 		for (size_t j = 0; j < TERRAINRESOLUTION; j++)
 		{
-			m_terrainGeometry[i][j].position =			Vector3(j*m_terrainPositionScalingFactor-(0.5*m_terrainSize), 0.0f, i*m_terrainPositionScalingFactor-(0.5*m_terrainSize));	//This will create a terrain going from -64->64.  rather than 0->128.  So the center of the terrain is on the origin
+			index = (TERRAINRESOLUTION * i) + j;
+			m_terrainGeometry[i][j].position =			Vector3(j*m_terrainPositionScalingFactor-(0.5*m_terrainSize), m_heightMap[index], i*m_terrainPositionScalingFactor-(0.5*m_terrainSize));	//This will create a terrain going from -64->64.  rather than 0->128.  So the center of the terrain is on the origin
 			m_terrainGeometry[i][j].normal =			Vector3(0.0f, 1.0f, 0.0f);						//standard y =up
 			m_terrainGeometry[i][j].textureCoordinate =	Vector2((float)m_textureCoordStep*j, (float)m_textureCoordStep*i);				//Spread tex coords so that its distributed evenly across the terrain from 0-1
+			
 		}
 	}
+
+	
 }
 
 void DisplayChunk::LoadHeightMap(std::shared_ptr<DX::DeviceResources>  DevResources, std::string * Heightmap)
@@ -72,35 +61,42 @@ void DisplayChunk::LoadHeightMap(std::shared_ptr<DX::DeviceResources>  DevResour
 	auto device = DevResources->GetD3DDevice();
 	auto devicecontext = DevResources->GetD3DDeviceContext();
 
+	//load in heightmap .raw
+	FILE *pFile = NULL;
+
+	// Open The File In Read / Binary Mode.
+	pFile = fopen("database/data/heightmap.raw", "rb");
+	// Check To See If We Found The File And Could Open It
+	if (pFile == NULL)
+	{
+		// Display Error Message And Stop The Function
+		MessageBox(NULL, L"Can't Find The Height Map!", L"Error", MB_OK);
+		return;
+	}
+
+	// Here We Load The .RAW File Into Our pHeightMap Data Array
+	// We Are Only Reading In '1', And The Size Is (Width * Height)
+	fread(m_heightMap, 1, TERRAINRESOLUTION*TERRAINRESOLUTION, pFile);
+
+	fclose(pFile);
+
+	//load in texture diffuse
 	HRESULT rs;
-//	rs = CreateDDSTextureFromFileEx(device, L"database/data/Error.dds", NULL, &m_heightmapInitialLoading);	//load tex into Shader resource	view and resource
+	rs = CreateDDSTextureFromFile(device, L"database/data/Error.dds", NULL, &m_texture_diffuse);	//load tex into Shader resource	view and resource
 	
-	rs = CreateDDSTextureFromFileEx(device, L"database/data/Error.dds", 0, D3D11_USAGE_DEFAULT, D3D11_BIND_SHADER_RESOURCE, D3D11_CPU_ACCESS_READ, 0, false, NULL, &m_heightmapInitialLoading);	//load tex into Shader resource	view and resource
-
-	//new and improved!  oh yes.
- 	rs = CreateDDSTextureFromFileEx(device, L"database/data/Error.dds", 0, D3D11_USAGE_DYNAMIC, D3D11_BIND_SHADER_RESOURCE, D3D11_CPU_ACCESS_WRITE,0,false, NULL, &m_heightmap);	//load tex into Shader resource	view and resource
-
-	m_heightmapInitialLoading->GetResource(&m_pDstResource);
-	devicecontext->Map(m_pDstResource, 0, D3D11_MAP_READ, 0, &m_mappedResource);
-	UCHAR* pTexels = (UCHAR*)m_mappedResource.pData;
-
-//	devicecontext->Unmap(m_pDstResource, 0);
-
-
-	device->CreateTexture2D(&m_desc, NULL, &m_pTexture);
-
-
+	//setup terrain effect
 	m_terrainEffect = std::make_unique<BasicEffect>(device);
 	m_terrainEffect->EnableDefaultLighting();
 	m_terrainEffect->SetLightingEnabled(true);
 	m_terrainEffect->SetTextureEnabled(true);
-	m_terrainEffect->SetTexture(m_heightmap);
+	m_terrainEffect->SetTexture(m_texture_diffuse);
 
 	void const* shaderByteCode;
 	size_t byteCodeLength;
 
 	m_terrainEffect->GetVertexShaderBytecode(&shaderByteCode, &byteCodeLength);
 
+	//setup batch
 	DX::ThrowIfFailed(
 		device->CreateInputLayout(VertexPositionNormalTexture::InputElements,
 			VertexPositionNormalTexture::InputElementCount,
@@ -108,12 +104,31 @@ void DisplayChunk::LoadHeightMap(std::shared_ptr<DX::DeviceResources>  DevResour
 			byteCodeLength,
 			m_terrainInputLayout.GetAddressOf())
 		);
+
 	m_batch = std::make_unique<PrimitiveBatch<VertexPositionNormalTexture>>(devicecontext);
 
+}
 
-	
+void DisplayChunk::SaveHeightMap()
+{
+/*	for (size_t i = 0; i < TERRAINRESOLUTION*TERRAINRESOLUTION; i++)
+	{
+		m_heightMap[i] = 0;
+	}
 
-//	devicecontext->Map(m_pDstResource, 0, D3D11_MAP_WRITE_DISCARD, 0, &m_mappedResource);
-//	m_mappedResource.pData
-//	devicecontext->Unmap(m_pDstResource, 0);
+	FILE *pFile = NULL;
+
+	// Open The File In Read / Binary Mode.
+	pFile = fopen("database/data/heightmap.raw", "w+");
+	// Check To See If We Found The File And Could Open It
+	if (pFile == NULL)
+	{
+		// Display Error Message And Stop The Function
+		MessageBox(NULL, L"Can't Find The Height Map!", L"Error", MB_OK);
+		return;
+	}
+
+	fwrite(m_heightMap, 1, TERRAINRESOLUTION*TERRAINRESOLUTION, pFile);
+	fclose(pFile);
+	*/
 }

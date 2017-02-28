@@ -48,6 +48,7 @@ public:
 	//tool specific
 	void BuildDisplayList(std::vector<SceneObject> * SceneGraph, ChunkObject *SceneChunk); //note vector passed by reference //todo,  remove chunk  from this
 	void BuildDisplayChunk(ChunkObject *SceneChunk);
+	void SaveDisplayChunk(ChunkObject *SceneChunk);	//saves geometry et al
 	void ClearDisplayList();
 
 #ifdef DXTK_AUDIO

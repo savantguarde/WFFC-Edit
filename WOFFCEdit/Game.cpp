@@ -460,6 +460,11 @@ void Game::BuildDisplayChunk(ChunkObject * SceneChunk)
 	m_displayChunk.InitialiseBatch();
 }
 
+void Game::SaveDisplayChunk(ChunkObject * SceneChunk)
+{
+	m_displayChunk.SaveHeightMap();			//save heightmap to file.
+}
+
 #ifdef DXTK_AUDIO
 void Game::NewAudioDevice()
 {

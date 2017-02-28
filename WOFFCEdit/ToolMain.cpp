@@ -144,6 +144,11 @@ void ToolMain::onActionSave()
 	MessageBox(NULL, L"Save", L"Save", MB_OK);
 }
 
+void ToolMain::onActionSaveTerrain()
+{
+	m_d3dRenderer.SaveDisplayChunk(&m_chunk);
+}
+
 void ToolMain::Tick(MSG *msg)
 {
 	//do we have a selection
