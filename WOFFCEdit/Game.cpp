@@ -556,7 +556,7 @@ void Game::CreateWindowSizeDependentResources()
         fovAngleY,
         aspectRatio,
         0.01f,
-        100.0f
+        1000.0f
     );
 
     m_batchEffect->SetProjection(m_projection);
