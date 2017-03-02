@@ -384,7 +384,7 @@ void Game::OnWindowSizeChanged(int width, int height)
     CreateWindowSizeDependentResources();
 }
 
-void Game::BuildDisplayList(std::vector<SceneObject> * SceneGraph, ChunkObject * SceneChunk)
+void Game::BuildDisplayList(std::vector<SceneObject> * SceneGraph)
 {
 	auto device = m_deviceResources->GetD3DDevice();
 	auto devicecontext = m_deviceResources->GetD3DDeviceContext();
@@ -406,7 +406,6 @@ void Game::BuildDisplayList(std::vector<SceneObject> * SceneGraph, ChunkObject *
 		std::wstring modelwstr = StringToWCHART(SceneGraph->at(i).model_path);							//convect string to Wchar
 		newDisplayObject.m_model = Model::CreateFromCMO(device, modelwstr.c_str(), *m_fxFactory, true);	//get DXSDK to load model "False" for LH coordinate system (maya)
 
-		
 		//Load Texture
 		std::wstring texturewstr = StringToWCHART(SceneGraph->at(i).tex_diffuse_path);								//convect string to Wchar
 		HRESULT rs;
@@ -452,10 +451,10 @@ void Game::BuildDisplayList(std::vector<SceneObject> * SceneGraph, ChunkObject *
 
 void Game::BuildDisplayChunk(ChunkObject * SceneChunk)
 {
-	//todo get file from scenechunk and pass it through
-	
-	std::string temp = "";
-	m_displayChunk.LoadHeightMap(m_deviceResources, &temp);
+	//populate our local DISPLAYCHUNK with all the chunk info we need from the object stored in toolmain
+	//which, to be honest, is almost all of it. Its mostly rendering related info so...
+	m_displayChunk.PopulateChunkData(SceneChunk);		//migrate chunk data
+	m_displayChunk.LoadHeightMap(m_deviceResources);
 	m_displayChunk.m_terrainEffect->SetProjection(m_projection);
 	m_displayChunk.InitialiseBatch();
 }

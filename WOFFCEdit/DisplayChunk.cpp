@@ -1,4 +1,6 @@
+#include <string>
 #include "DisplayChunk.h"
+#include "Game.h"
 
 
 using namespace DirectX;
@@ -16,6 +18,28 @@ DisplayChunk::DisplayChunk()
 
 DisplayChunk::~DisplayChunk()
 {
+}
+
+void DisplayChunk::PopulateChunkData(ChunkObject * SceneChunk)
+{
+	m_name = SceneChunk->name;
+	m_chunk_x_size_metres = SceneChunk->chunk_x_size_metres;
+	m_chunk_y_size_metres = SceneChunk->chunk_y_size_metres;
+	m_chunk_base_resolution = SceneChunk->chunk_base_resolution;
+	m_heightmap_path = SceneChunk->heightmap_path;
+	m_tex_diffuse_path = SceneChunk->tex_diffuse_path;
+	m_tex_splat_alpha_path = SceneChunk->tex_splat_alpha_path;
+	m_tex_splat_1_path = SceneChunk->tex_splat_1_path;
+	m_tex_splat_2_path = SceneChunk->tex_splat_2_path;
+	m_tex_splat_3_path = SceneChunk->tex_splat_3_path;
+	m_tex_splat_4_path = SceneChunk->tex_splat_4_path;
+	m_render_wireframe = SceneChunk->render_wireframe;
+	m_render_normals = SceneChunk->render_normals;
+	m_tex_diffuse_tiling = SceneChunk->tex_diffuse_tiling;
+	m_tex_splat_1_tiling = SceneChunk->tex_splat_1_tiling;
+	m_tex_splat_2_tiling = SceneChunk->tex_splat_2_tiling;
+	m_tex_splat_3_tiling = SceneChunk->tex_splat_3_tiling;
+	m_tex_splat_4_tiling = SceneChunk->tex_splat_4_tiling;
 }
 
 void DisplayChunk::RenderBatch(std::shared_ptr<DX::DeviceResources>  DevResources)
@@ -49,7 +73,7 @@ void DisplayChunk::InitialiseBatch()
 			index = (TERRAINRESOLUTION * i) + j;
 			m_terrainGeometry[i][j].position =			Vector3(j*m_terrainPositionScalingFactor-(0.5*m_terrainSize), (float)(m_heightMap[index])*m_terrainHeightScale, i*m_terrainPositionScalingFactor-(0.5*m_terrainSize));	//This will create a terrain going from -64->64.  rather than 0->128.  So the center of the terrain is on the origin
 			m_terrainGeometry[i][j].normal =			Vector3(0.0f, 1.0f, 0.0f);						//standard y =up
-			m_terrainGeometry[i][j].textureCoordinate =	Vector2((float)m_textureCoordStep*j, (float)m_textureCoordStep*i);				//Spread tex coords so that its distributed evenly across the terrain from 0-1
+			m_terrainGeometry[i][j].textureCoordinate =	Vector2(((float)m_textureCoordStep*j)*m_tex_diffuse_tiling, ((float)m_textureCoordStep*i)*m_tex_diffuse_tiling);				//Spread tex coords so that its distributed evenly across the terrain from 0-1
 			
 		}
 	}
@@ -57,7 +81,7 @@ void DisplayChunk::InitialiseBatch()
 	
 }
 
-void DisplayChunk::LoadHeightMap(std::shared_ptr<DX::DeviceResources>  DevResources, std::string * Heightmap)
+void DisplayChunk::LoadHeightMap(std::shared_ptr<DX::DeviceResources>  DevResources)
 {
 	auto device = DevResources->GetD3DDevice();
 	auto devicecontext = DevResources->GetD3DDeviceContext();
@@ -66,7 +90,8 @@ void DisplayChunk::LoadHeightMap(std::shared_ptr<DX::DeviceResources>  DevResour
 	FILE *pFile = NULL;
 
 	// Open The File In Read / Binary Mode.
-	pFile = fopen("database/data/heightmap.raw", "rb");
+
+	pFile = fopen(m_heightmap_path.c_str(), "rb");
 	// Check To See If We Found The File And Could Open It
 	if (pFile == NULL)
 	{
@@ -82,8 +107,11 @@ void DisplayChunk::LoadHeightMap(std::shared_ptr<DX::DeviceResources>  DevResour
 	fclose(pFile);
 
 	//load in texture diffuse
-	HRESULT rs;
-	rs = CreateDDSTextureFromFile(device, L"database/data/Error.dds", NULL, &m_texture_diffuse);	//load tex into Shader resource	view and resource
+	
+	//load the diffuse texture
+	std::wstring texturewstr = StringToWCHART(m_tex_diffuse_path);
+	HRESULT rs;	
+	rs = CreateDDSTextureFromFile(device, texturewstr.c_str(), NULL, &m_texture_diffuse);	//load tex into Shader resource	view and resource
 	
 	//setup terrain effect
 	m_terrainEffect = std::make_unique<BasicEffect>(device);
@@ -116,12 +144,12 @@ void DisplayChunk::SaveHeightMap()
 /*	for (size_t i = 0; i < TERRAINRESOLUTION*TERRAINRESOLUTION; i++)
 	{
 		m_heightMap[i] = 0;
-	}
+	}*/
 
 	FILE *pFile = NULL;
 
 	// Open The File In Read / Binary Mode.
-	pFile = fopen("database/data/heightmap.raw", "w+");
+	pFile = fopen(m_heightmap_path.c_str(), "w+");;
 	// Check To See If We Found The File And Could Open It
 	if (pFile == NULL)
 	{
@@ -132,7 +160,28 @@ void DisplayChunk::SaveHeightMap()
 
 	fwrite(m_heightMap, 1, TERRAINRESOLUTION*TERRAINRESOLUTION, pFile);
 	fclose(pFile);
-	*/
+	
+}
+
+void DisplayChunk::UpdateTerrain()
+{
+	//all this is doing is transferring the height from the heigtmap into the terrain geometry.
+	int index;
+	for (size_t i = 0; i < TERRAINRESOLUTION; i++)
+	{
+		for (size_t j = 0; j < TERRAINRESOLUTION; j++)
+		{
+			index = (TERRAINRESOLUTION * i) + j;
+			m_terrainGeometry[i][j].position.x = (float)(m_heightMap[index])*m_terrainHeightScale;	
+		}
+	}
+	CalculateTerrainNormals();
+
+}
+
+void DisplayChunk::GenerateHeightmap()
+{
+	//insert how YOU want to update the heigtmap here! :D
 }
 
 void DisplayChunk::CalculateTerrainNormals()

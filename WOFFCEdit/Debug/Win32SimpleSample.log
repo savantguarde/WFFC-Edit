@@ -1,72 +1,15 @@
 ﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(392,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (Win32SimpleSample.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  ToolMain.cpp
-  _WIN32_WINNT not defined. Defaulting to _WIN32_WINNT_MAXVER (see WinSDKVer.h)
-c:\programming\wffc-edit\woffcedit\toolmain.cpp(82): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\programming\wffc-edit\woffcedit\toolmain.cpp(83): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\programming\wffc-edit\woffcedit\toolmain.cpp(84): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\programming\wffc-edit\woffcedit\toolmain.cpp(85): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\programming\wffc-edit\woffcedit\toolmain.cpp(86): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\programming\wffc-edit\woffcedit\toolmain.cpp(87): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\programming\wffc-edit\woffcedit\toolmain.cpp(88): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\programming\wffc-edit\woffcedit\toolmain.cpp(89): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\programming\wffc-edit\woffcedit\toolmain.cpp(90): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\programming\wffc-edit\woffcedit\toolmain.cpp(91): warning C4800: 'double': forcing value to bool 'true' or 'false' (performance warning)
-c:\programming\wffc-edit\woffcedit\toolmain.cpp(92): warning C4800: 'double': forcing value to bool 'true' or 'false' (performance warning)
-c:\programming\wffc-edit\woffcedit\toolmain.cpp(94): warning C4800: 'double': forcing value to bool 'true' or 'false' (performance warning)
-c:\programming\wffc-edit\woffcedit\toolmain.cpp(95): warning C4800: 'double': forcing value to bool 'true' or 'false' (performance warning)
-c:\programming\wffc-edit\woffcedit\toolmain.cpp(96): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-c:\programming\wffc-edit\woffcedit\toolmain.cpp(97): warning C4800: 'double': forcing value to bool 'true' or 'false' (performance warning)
-c:\programming\wffc-edit\woffcedit\toolmain.cpp(98): warning C4800: 'double': forcing value to bool 'true' or 'false' (performance warning)
-c:\programming\wffc-edit\woffcedit\toolmain.cpp(99): warning C4800: 'double': forcing value to bool 'true' or 'false' (performance warning)
-c:\programming\wffc-edit\woffcedit\toolmain.cpp(100): warning C4800: 'double': forcing value to bool 'true' or 'false' (performance warning)
-c:\programming\wffc-edit\woffcedit\toolmain.cpp(101): warning C4800: 'double': forcing value to bool 'true' or 'false' (performance warning)
-c:\programming\wffc-edit\woffcedit\toolmain.cpp(102): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\programming\wffc-edit\woffcedit\toolmain.cpp(103): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\programming\wffc-edit\woffcedit\toolmain.cpp(104): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\programming\wffc-edit\woffcedit\toolmain.cpp(105): warning C4800: 'double': forcing value to bool 'true' or 'false' (performance warning)
-c:\programming\wffc-edit\woffcedit\toolmain.cpp(106): warning C4800: 'double': forcing value to bool 'true' or 'false' (performance warning)
-c:\programming\wffc-edit\woffcedit\toolmain.cpp(108): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\programming\wffc-edit\woffcedit\toolmain.cpp(109): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\programming\wffc-edit\woffcedit\toolmain.cpp(110): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\programming\wffc-edit\woffcedit\toolmain.cpp(111): warning C4800: 'double': forcing value to bool 'true' or 'false' (performance warning)
-c:\programming\wffc-edit\woffcedit\toolmain.cpp(112): warning C4800: 'double': forcing value to bool 'true' or 'false' (performance warning)
-c:\programming\wffc-edit\woffcedit\toolmain.cpp(113): warning C4800: 'double': forcing value to bool 'true' or 'false' (performance warning)
-c:\programming\wffc-edit\woffcedit\toolmain.cpp(114): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-c:\programming\wffc-edit\woffcedit\toolmain.cpp(115): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-c:\programming\wffc-edit\woffcedit\toolmain.cpp(116): warning C4800: 'double': forcing value to bool 'true' or 'false' (performance warning)
-c:\programming\wffc-edit\woffcedit\toolmain.cpp(117): warning C4800: 'double': forcing value to bool 'true' or 'false' (performance warning)
-c:\programming\wffc-edit\woffcedit\toolmain.cpp(118): warning C4800: 'double': forcing value to bool 'true' or 'false' (performance warning)
-c:\programming\wffc-edit\woffcedit\toolmain.cpp(119): warning C4800: 'double': forcing value to bool 'true' or 'false' (performance warning)
-c:\programming\wffc-edit\woffcedit\toolmain.cpp(120): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-c:\programming\wffc-edit\woffcedit\toolmain.cpp(126): warning C4101: 'path_node': unreferenced local variable
-c:\programming\wffc-edit\woffcedit\toolmain.cpp(128): warning C4101: 'path_node_end': unreferenced local variable
-c:\programming\wffc-edit\woffcedit\toolmain.cpp(127): warning C4101: 'path_node_start': unreferenced local variable
-c:\programming\wffc-edit\woffcedit\toolmain.cpp(125): warning C4101: 'camera': unreferenced local variable
-c:\programming\wffc-edit\woffcedit\toolmain.cpp(129): warning C4101: 'parent_id': unreferenced local variable
-  Main.cpp
-  _WIN32_WINNT not defined. Defaulting to _WIN32_WINNT_MAXVER (see WinSDKVer.h)
-  MFCMain.cpp
-  _WIN32_WINNT not defined. Defaulting to _WIN32_WINNT_MAXVER (see WinSDKVer.h)
-  MFCFrame.cpp
-  _WIN32_WINNT not defined. Defaulting to _WIN32_WINNT_MAXVER (see WinSDKVer.h)
-  Game.cpp
-c:\programming\wffc-edit\woffcedit\game.cpp(28): warning C4305: '=': truncation from 'double' to 'float'
-c:\programming\wffc-edit\woffcedit\game.cpp(158): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\programming\wffc-edit\woffcedit\game.cpp(159): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\programming\wffc-edit\woffcedit\game.cpp(263): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\programming\wffc-edit\woffcedit\game.cpp(247): warning C4101: 'Buffer': unreferenced local variable
-  Generating Code...
-  Compiling...
   DisplayChunk.cpp
-c:\programming\wffc-edit\woffcedit\displaychunk.cpp(11): warning C4305: '=': truncation from 'double' to 'float'
-c:\programming\wffc-edit\woffcedit\displaychunk.cpp(12): warning C4305: '=': truncation from 'double' to 'float'
-c:\programming\wffc-edit\woffcedit\displaychunk.cpp(13): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-c:\programming\wffc-edit\woffcedit\displaychunk.cpp(50): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\programming\wffc-edit\woffcedit\displaychunk.cpp(69): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+d:\mydocs\development\wffc-edit\woffcedit\displaychunk.cpp(13): warning C4305: '=': truncation from 'double' to 'float'
+d:\mydocs\development\wffc-edit\woffcedit\displaychunk.cpp(14): warning C4305: '=': truncation from 'double' to 'float'
+d:\mydocs\development\wffc-edit\woffcedit\displaychunk.cpp(15): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+d:\mydocs\development\wffc-edit\woffcedit\displaychunk.cpp(74): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+d:\mydocs\development\wffc-edit\woffcedit\displaychunk.cpp(94): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(205): note: see declaration of 'fopen'
-c:\programming\wffc-edit\woffcedit\displaychunk.cpp(140): warning C4101: 'index4': unreferenced local variable
-c:\programming\wffc-edit\woffcedit\displaychunk.cpp(140): warning C4101: 'index2': unreferenced local variable
-c:\programming\wffc-edit\woffcedit\displaychunk.cpp(140): warning C4101: 'index3': unreferenced local variable
-c:\programming\wffc-edit\woffcedit\displaychunk.cpp(140): warning C4101: 'index1': unreferenced local variable
-  Generating Code...
-  Win32SimpleSample.vcxproj -> C:\programming\WFFC-Edit\WOFFCEdit\Debug\WoFEdit.exe
+d:\mydocs\development\wffc-edit\woffcedit\displaychunk.cpp(152): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(205): note: see declaration of 'fopen'
+d:\mydocs\development\wffc-edit\woffcedit\displaychunk.cpp(189): warning C4101: 'index4': unreferenced local variable
+d:\mydocs\development\wffc-edit\woffcedit\displaychunk.cpp(189): warning C4101: 'index2': unreferenced local variable
+d:\mydocs\development\wffc-edit\woffcedit\displaychunk.cpp(189): warning C4101: 'index3': unreferenced local variable
+d:\mydocs\development\wffc-edit\woffcedit\displaychunk.cpp(189): warning C4101: 'index1': unreferenced local variable
+  Win32SimpleSample.vcxproj -> D:\mydocs\Development\WFFC-Edit\WOFFCEdit\Debug\WoFEdit.exe

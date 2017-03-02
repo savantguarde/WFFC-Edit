@@ -63,13 +63,13 @@ void ToolMain::onActionLoad()
 	char *sqlCommand;
 	char *ErrMSG = 0;
 	sqlite3_stmt *pResults;								//results of the query
+	sqlite3_stmt *pResultsChunk;
 
+	//OBJECTS IN THE WORLD
 	//prepare SQL Text
 	sqlCommand = "SELECT * from Objects";				//sql command which will return all records from the objects table.
-
 	//Send Command and fill result object
 	rc = sqlite3_prepare_v2(m_databaseConnection, sqlCommand, -1, &pResults, 0 );
-
 	
 	//loop for each row in results until there are no more rows.  ie for every row in the results. We create and object
 	while (sqlite3_step(pResults) == SQLITE_ROW)
@@ -119,21 +119,61 @@ void ToolMain::onActionLoad()
 		newSceneObject.path_node_end = sqlite3_column_double(pResults, 41);
 		newSceneObject.parent_id = sqlite3_column_double(pResults, 42);
 		
-	
-		
-
-		bool camera;
-		bool path_node;
-		bool path_node_start;
-		bool path_node_end;
-		int parent_id;
-
 		//send completed object to scenegraph
 		m_sceneGraph.push_back(newSceneObject);
 	}
 
+	//THE WORLD CHUNK
+	//prepare SQL Text
+	sqlCommand = "SELECT * from Chunks";				//sql command which will return all records from  chunks table. There is only one tho.
+														//Send Command and fill result object
+	rc = sqlite3_prepare_v2(m_databaseConnection, sqlCommand, -1, &pResultsChunk, 0);
+
+
+	sqlite3_step(pResultsChunk);
+	m_chunk.ID = sqlite3_column_int(pResultsChunk, 0);
+	m_chunk.name = reinterpret_cast<const char*>(sqlite3_column_text(pResultsChunk, 1));
+	m_chunk.chunk_x_size_metres = sqlite3_column_int(pResultsChunk, 2);
+	m_chunk.chunk_y_size_metres = sqlite3_column_int(pResultsChunk, 3);
+	m_chunk.chunk_base_resolution = sqlite3_column_int(pResultsChunk, 4);
+	m_chunk.heightmap_path = reinterpret_cast<const char*>(sqlite3_column_text(pResultsChunk, 5));
+	m_chunk.tex_diffuse_path = reinterpret_cast<const char*>(sqlite3_column_text(pResultsChunk, 6));
+	m_chunk.tex_splat_alpha_path = reinterpret_cast<const char*>(sqlite3_column_text(pResultsChunk, 7));
+	m_chunk.tex_splat_1_path = reinterpret_cast<const char*>(sqlite3_column_text(pResultsChunk, 8));
+	m_chunk.tex_splat_2_path = reinterpret_cast<const char*>(sqlite3_column_text(pResultsChunk, 9));
+	m_chunk.tex_splat_3_path = reinterpret_cast<const char*>(sqlite3_column_text(pResultsChunk, 10));
+	m_chunk.tex_splat_4_path = reinterpret_cast<const char*>(sqlite3_column_text(pResultsChunk, 11));
+	m_chunk.render_wireframe = sqlite3_column_int(pResultsChunk, 12);
+	m_chunk.render_normals = sqlite3_column_int(pResultsChunk, 13);
+	m_chunk.tex_diffuse_tiling = sqlite3_column_int(pResultsChunk, 14);
+	m_chunk.tex_splat_1_tiling = sqlite3_column_int(pResultsChunk, 15);
+	m_chunk.tex_splat_2_tiling = sqlite3_column_int(pResultsChunk, 16);
+	m_chunk.tex_splat_3_tiling = sqlite3_column_int(pResultsChunk, 17);
+	m_chunk.tex_splat_4_tiling = sqlite3_column_int(pResultsChunk, 18);
+
+/*	int ID;
+	std::string name;
+	int chunk_x_size_metres;
+	int chunk_y_size_metres;
+	int chunk_base_resolution;
+	std::string heightmap_path;
+	std::string tex_diffuse_path;
+	std::string tex_splat_alpha_path;
+	std::string tex_splat_1_path;
+	std::string tex_splat_2_path;
+	std::string tex_splat_3_path;
+	std::string tex_splat_4_path;
+	bool render_wireframe;
+	bool render_normals;
+	int tex_diffuse_tiling;
+	int tex_splat_1_tiling;
+	int tex_splat_2_tiling;
+	int tex_splat_3_tiling;
+	int tex_splat_4_tiling;*/
+
+
 	//Process REsults into renderable
-	m_d3dRenderer.BuildDisplayList(&m_sceneGraph, &m_chunk);
+	m_d3dRenderer.BuildDisplayList(&m_sceneGraph);
 	//build the renderable chunk 
 	m_d3dRenderer.BuildDisplayChunk(&m_chunk);
 
