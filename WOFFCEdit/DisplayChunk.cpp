@@ -10,7 +10,7 @@ DisplayChunk::DisplayChunk()
 {
 	//terrain size in meters. note that this is hard coded here, we COULD get it from the terrain chunk along with the other info from the tool if we want to be more flexible.
 	m_terrainSize = 512;
-	m_terrainHeightScale = 0.4;  //convert our 0-256 terrain to 64
+	m_terrainHeightScale = 0.25;  //convert our 0-256 terrain to 64
 	m_textureCoordStep = 1.0 / (TERRAINRESOLUTION-1);	//-1 becuase its split into chunks. not vertices.  we want tthe last one in each row to have tex coord 1
 	m_terrainPositionScalingFactor = m_terrainSize / (TERRAINRESOLUTION-1);
 }
@@ -149,7 +149,7 @@ void DisplayChunk::SaveHeightMap()
 	FILE *pFile = NULL;
 
 	// Open The File In Read / Binary Mode.
-	pFile = fopen(m_heightmap_path.c_str(), "w+");;
+	pFile = fopen(m_heightmap_path.c_str(), "wb+");;
 	// Check To See If We Found The File And Could Open It
 	if (pFile == NULL)
 	{
@@ -172,7 +172,7 @@ void DisplayChunk::UpdateTerrain()
 		for (size_t j = 0; j < TERRAINRESOLUTION; j++)
 		{
 			index = (TERRAINRESOLUTION * i) + j;
-			m_terrainGeometry[i][j].position.x = (float)(m_heightMap[index])*m_terrainHeightScale;	
+			m_terrainGeometry[i][j].position.y = (float)(m_heightMap[index])*m_terrainHeightScale;	
 		}
 	}
 	CalculateTerrainNormals();
