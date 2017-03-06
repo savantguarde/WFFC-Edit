@@ -1,22 +1,20 @@
 #include "MFCMain.h"
-#include "MFCFrame.h"
 #include "resource.h"
-
-
 
 BEGIN_MESSAGE_MAP(MFCMain, CWinApp)
 	ON_COMMAND(ID_FILE_QUIT,	&MFCMain::MenuFileQuit)
 	ON_COMMAND(ID_FILE_SAVETERRAIN, &MFCMain::MenuFileSaveTerrain)
 	ON_COMMAND(ID_BUTTON40001,	&MFCMain::ToolBarButton1)
+	ON_UPDATE_COMMAND_UI(ID_INDICATOR_TOOL, &CMyFrame::OnUpdatePage)
 END_MESSAGE_MAP()
 
 BOOL MFCMain::InitInstance()
 {
 	//instanciate the mfc frame
-	CMyFrame *Frame = new CMyFrame();
-	m_pMainWnd = Frame;
+	m_frame = new CMyFrame();
+	m_pMainWnd = m_frame;
 
-	Frame->Create(	NULL,
+	m_frame->Create(	NULL,
 					_T("World Of Flim-Flam Craft Editor"),
 					WS_OVERLAPPEDWINDOW,
 					CRect(100, 100, 1024, 768),
@@ -28,13 +26,13 @@ BOOL MFCMain::InitInstance()
 
 	//get the rect from the MFC window so we can get its dimensions
 //	m_toolHandle = Frame->GetSafeHwnd();						//handle of main window
-	m_toolHandle = Frame->m_DirXView.GetSafeHwnd();				//handle of directX child window
-	Frame->m_DirXView.GetWindowRect(&WindowRECT);
+	m_toolHandle = m_frame->m_DirXView.GetSafeHwnd();				//handle of directX child window
+	m_frame->m_DirXView.GetWindowRect(&WindowRECT);
 	m_width = WindowRECT.Width();
 	m_height = WindowRECT.Height();
 
-	Frame->ShowWindow(SW_SHOW);
-	Frame->UpdateWindow();
+	m_frame->ShowWindow(SW_SHOW);
+	m_frame->UpdateWindow();
 
 	m_ToolSystem.onActionInitialise(m_toolHandle, 800, 600);
 
@@ -68,7 +66,12 @@ int MFCMain::Run()
 		}
 		else
 		{	
+			int ID = m_ToolSystem.getCurrentSelectionID();
+			std::wstring statusString = L"Selected Object: " + std::to_wstring(ID);
 			m_ToolSystem.Tick(&msg);
+
+			//send current object ID to status bar in The main frame
+			m_frame->m_wndStatusBar.SetPaneText(1, statusString.c_str(), 1);	
 		}
 	}
 

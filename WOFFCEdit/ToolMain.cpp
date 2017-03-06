@@ -5,8 +5,9 @@
 //ToolMain Class
 ToolMain::ToolMain()
 {
-//	m_sceneGraph = new std::vector<SceneObject>;	//initialise vector of scene objects. 
+
 	m_currentChunk = 0;		//default value
+	m_selectedObject = 0;	//initial selection ID
 	m_sceneGraph.clear();	//clear the vector for the scenegraph
 	m_databaseConnection = NULL;
 
@@ -24,6 +25,12 @@ ToolMain::~ToolMain()
 	sqlite3_close(m_databaseConnection);		//close the database connection
 }
 
+
+int ToolMain::getCurrentSelectionID()
+{
+
+	return m_selectedObject;
+}
 
 void ToolMain::onActionInitialise(HWND handle, int width, int height)
 {

@@ -4,40 +4,36 @@
 
 
 BEGIN_MESSAGE_MAP(CMyFrame, CFrameWnd)
+	
 	ON_WM_CREATE()
-//	ON_COMMAND(ID_BUTTON40001, CMyFrame.m_ToolSystem.OnActionSave)
-//	ON_COMMAND(ID_BUTTON40001, &CMyFrame::activate)
-//	ON_MESSAGE(WM_COMMAND, stuff)
-
+	ON_UPDATE_COMMAND_UI(ID_INDICATOR_TOOL, &CMyFrame::OnUpdatePage)
 END_MESSAGE_MAP()
 
 static UINT indicators[] =
 {
-	ID_SEPARATOR,           // status line indicator
-	ID_INDICATOR_CAPS,
-	ID_INDICATOR_NUM,
-	ID_INDICATOR_SCRL,
+	ID_SEPARATOR,
+	ID_INDICATOR_TOOL
 };
 //FRAME CLASS
 
-/*
-LRESULT CMyFrame::stuff(WPARAM wParam, LPARAM lParam)
-{
-	if (wParam == ID_BUTTON40001)
-	{
-		float temp = 0;
-	}
-	return 0L;
-}
-
-void CMyFrame::activate()
-{
-	float temp = 0;
-}*/
 
 //frame initialiser
 CMyFrame::CMyFrame()
 {
+	m_selectionID = 999; //an obviously wrong selection ID,  to verify its working
+}
+
+void CMyFrame::SetCurrentSelectionID(int ID)
+{
+	m_selectionID = ID;
+}
+
+void CMyFrame::OnUpdatePage(CCmdUI * pCmdUI)
+{
+	pCmdUI->Enable();
+	CString strPage;
+	strPage.Format(_T("%d"), m_selectionID);
+	pCmdUI->SetText(strPage);
 }
 
 //oncretae, called after init but before window is shown. 
@@ -62,14 +58,15 @@ int CMyFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		return -1;      // fail to create
 	}
 	
+	CRect rect;
+	GetClientRect(&rect);
 	if (!m_wndStatusBar.Create(this))
 	{
 		TRACE0("Failed to create status bar\n");
 		return -1;      // fail to create
 	}
 	m_wndStatusBar.SetIndicators(indicators, sizeof(indicators) / sizeof(UINT));
-
-
+	m_wndStatusBar.SetPaneInfo(1, ID_INDICATOR_TOOL, SBPS_NORMAL, rect.Width() - 500);//set width of status bar panel
 
 	return 0;
 }
