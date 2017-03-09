@@ -93,8 +93,13 @@ void MFCMain::MenuFileSaveTerrain()
 
 void MFCMain::MenuEditSelect()
 {
-	SelectDialogue m_ToolSelectDialogue(NULL, &m_ToolSystem.m_sceneGraph);		//create our dialoguebox
-	m_ToolSelectDialogue.DoModal();	// start it up
+	//SelectDialogue m_ToolSelectDialogue(NULL, &m_ToolSystem.m_sceneGraph);		//create our dialoguebox //modal constructor
+	//m_ToolSelectDialogue.DoModal();	// start it up modal
+
+	//modeless dialogue must be declared in the class.   If we do local it will go out of scope instantly and destroy itself
+	m_ToolSelectDialogue.Create(IDD_DIALOG1);	//Start up modeless
+	m_ToolSelectDialogue.ShowWindow(SW_SHOW);	//show modeless
+	m_ToolSelectDialogue.SetObjectData(&m_ToolSystem.m_sceneGraph);
 }
 
 void MFCMain::ToolBarButton1()
