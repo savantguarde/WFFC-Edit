@@ -56,6 +56,9 @@
     <ClCompile Include="DisplayChunk.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="SelectDialogue.cpp">
+      <Filter>MFC</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DeviceResources.h">
@@ -100,6 +103,10 @@
     </ClInclude>
     <ClInclude Include="DisplayChunk.h">
       <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="SelectDialogue.h">
+      <Filter>MFC</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

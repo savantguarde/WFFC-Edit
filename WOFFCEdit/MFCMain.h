@@ -8,6 +8,7 @@
 #include "ToolMain.h"
 #include "resource.h"
 #include "MFCFrame.h"
+#include "SelectDialogue.h"
 
 
 class MFCMain : public CWinApp 
@@ -25,12 +26,14 @@ private:
 	ToolMain m_ToolSystem;	//Instance of Tool System that we interface to. 
 	CRect WindowRECT;	//Window area rectangle. 
 	
+
 	int m_width;		
 	int m_height;
 	
 	//Interface funtions for menu and toolbar etc requires
 	afx_msg void MenuFileQuit();
 	afx_msg void MenuFileSaveTerrain();
+	afx_msg void MenuEditSelect();
 	afx_msg	void ToolBarButton1();
 
 
