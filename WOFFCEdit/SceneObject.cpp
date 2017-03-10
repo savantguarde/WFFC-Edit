@@ -26,19 +26,21 @@ SceneObject::SceneObject()
 	snapToGround = false;
 	AINode = false;
 	audio_path = "";
-	float volume =0.0f;
-	float pitch = 0.0f;
-	float pan = 0.0f;
-	bool one_shot = false;
-	bool play_on_init = false;
-	bool play_in_editor = false;
-	int min_dist = 0;
-	int max_dist = 0;
-	bool camera = false;
-	bool path_node = false;
-	bool path_node_start = false;
-	bool path_node_end = false;
-	int parent_id =0;
+	volume =0.0f;
+	pitch = 0.0f;
+	pan = 0.0f;
+	one_shot = false;
+	play_on_init = false;
+	play_in_editor = false;
+	min_dist = 0;
+	max_dist = 0;
+	camera = false;
+	path_node = false;
+	path_node_start = false;
+	path_node_end = false;
+	parent_id =0;
+	editor_wireframe=false;
+	name ="";
 }
 
 

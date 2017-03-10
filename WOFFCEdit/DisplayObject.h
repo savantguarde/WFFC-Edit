@@ -17,5 +17,6 @@ public:
 	DirectX::SimpleMath::Vector3			m_orientation;
 	DirectX::SimpleMath::Vector3			m_scale;
 	bool									m_render;
+	bool									m_wireframe;
 };
 

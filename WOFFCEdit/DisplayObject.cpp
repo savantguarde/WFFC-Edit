@@ -1,8 +1,5 @@
 #include "DisplayObject.h"
 
-
-
-
 DisplayObject::DisplayObject()
 {
 	m_model = NULL;
@@ -17,6 +14,7 @@ DisplayObject::DisplayObject()
 	m_scale.y = 0.0f;
 	m_scale.z = 0.0f;
 	m_render = true;
+	m_wireframe = false;
 }
 
 
