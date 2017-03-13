@@ -160,26 +160,6 @@ void ToolMain::onActionLoad()
 	m_chunk.tex_splat_3_tiling = sqlite3_column_int(pResultsChunk, 17);
 	m_chunk.tex_splat_4_tiling = sqlite3_column_int(pResultsChunk, 18);
 
-/*	int ID;
-	std::string name;
-	int chunk_x_size_metres;
-	int chunk_y_size_metres;
-	int chunk_base_resolution;
-	std::string heightmap_path;
-	std::string tex_diffuse_path;
-	std::string tex_splat_alpha_path;
-	std::string tex_splat_1_path;
-	std::string tex_splat_2_path;
-	std::string tex_splat_3_path;
-	std::string tex_splat_4_path;
-	bool render_wireframe;
-	bool render_normals;
-	int tex_diffuse_tiling;
-	int tex_splat_1_tiling;
-	int tex_splat_2_tiling;
-	int tex_splat_3_tiling;
-	int tex_splat_4_tiling;*/
-
 
 	//Process REsults into renderable
 	m_d3dRenderer.BuildDisplayList(&m_sceneGraph);
@@ -190,7 +170,26 @@ void ToolMain::onActionLoad()
 
 void ToolMain::onActionSave()
 {
-	MessageBox(NULL, L"Save", L"Save", MB_OK);
+/*	//SQL
+	int rc;
+	char *sqlCommand;
+	char *ErrMSG = 0;
+	sqlite3_stmt *pResults;								//results of the query
+	
+
+	//OBJECTS IN THE WORLD Delete them all
+	//prepare SQL Text
+	sqlCommand = "DELETE * FROM Objects";	 //will delete the whole object table.   Slightly risky but hey.
+	rc = sqlite3_prepare_v2(m_databaseConnection, sqlCommand, -1, &pResults, 0);
+	sqlite3_step(pResults);
+
+	//Populate with our new objects
+	std::stringstream sqlCommand2;
+	sqlCommand2 <<
+//	sqlCommand = " * FROM Objects";	 //will delete the whole object table.   Slightly risky but hey.
+//	rc = sqlite3_prepare_v2(m_databaseConnection, sqlCommand, -1, &pResults, 0);
+//	sqlite3_step(pResults);
+	//populate it*/
 }
 
 void ToolMain::onActionSaveTerrain()
