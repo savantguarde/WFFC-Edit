@@ -1,6 +1,7 @@
 #include "ToolMain.h"
 #include "resource.h"
 #include <vector>
+#include <sstream>
 
 //ToolMain Class
 ToolMain::ToolMain()
@@ -179,17 +180,67 @@ void ToolMain::onActionSave()
 
 	//OBJECTS IN THE WORLD Delete them all
 	//prepare SQL Text
-	sqlCommand = "DELETE * FROM Objects";	 //will delete the whole object table.   Slightly risky but hey.
+	sqlCommand = "DELETE FROM Objects";	 //will delete the whole object table.   Slightly risky but hey.
 	rc = sqlite3_prepare_v2(m_databaseConnection, sqlCommand, -1, &pResults, 0);
 	sqlite3_step(pResults);
 
 	//Populate with our new objects
-	std::stringstream sqlCommand2;
-	sqlCommand2 <<
-//	sqlCommand = " * FROM Objects";	 //will delete the whole object table.   Slightly risky but hey.
-//	rc = sqlite3_prepare_v2(m_databaseConnection, sqlCommand, -1, &pResults, 0);
-//	sqlite3_step(pResults);
-	//populate it*/
+	std::wstring sqlCommand2;
+	int numObjects = m_sceneGraph.size();	//Loop thru the scengraph.
+
+	for (int i = 0; i < numObjects; i++)
+	{
+		std::stringstream command;
+		command << "INSERT INTO Objects (" << m_sceneGraph.at(i).ID << ","
+			<< m_sceneGraph.at(i).chunk_ID << ","
+			<< m_sceneGraph.at(i).model_path << ","
+			<< m_sceneGraph.at(i).tex_diffuse_path << ","
+			<< m_sceneGraph.at(i).posX << ","
+			<< m_sceneGraph.at(i).posY << ","
+			<< m_sceneGraph.at(i).posZ << ","
+			<< m_sceneGraph.at(i).rotX << ","
+			<< m_sceneGraph.at(i).rotY << ","
+			<< m_sceneGraph.at(i).rotZ << ","
+			<< m_sceneGraph.at(i).scaX << ","
+			<< m_sceneGraph.at(i).scaY << ","
+			<< m_sceneGraph.at(i).scaZ << ","
+			<< m_sceneGraph.at(i).render << ","
+			<< m_sceneGraph.at(i).collision << ","
+			<< m_sceneGraph.at(i).collision_mesh << ","
+			<< m_sceneGraph.at(i).collectable << ","
+			<< m_sceneGraph.at(i).destructable << ","
+			<< m_sceneGraph.at(i).health_amount << ","
+			<< m_sceneGraph.at(i).editor_render << ","
+			<< m_sceneGraph.at(i).editor_texture_vis << ","
+			<< m_sceneGraph.at(i).editor_normals_vis << ","
+			<< m_sceneGraph.at(i).editor_collision_vis << ","
+			<< m_sceneGraph.at(i).editor_pivot_vis << ","
+			<< m_sceneGraph.at(i).pivotX << ","
+			<< m_sceneGraph.at(i).pivotY << ","
+			<< m_sceneGraph.at(i).pivotZ << ","
+			<< m_sceneGraph.at(i).snapToGround << ","
+			<< m_sceneGraph.at(i).AINode << ","
+			<< m_sceneGraph.at(i).audio_path << ","
+			<< m_sceneGraph.at(i).volume << ","
+			<< m_sceneGraph.at(i).pitch << ","
+			<< m_sceneGraph.at(i).pan << ","
+			<< m_sceneGraph.at(i).one_shot << ","
+			<< m_sceneGraph.at(i).play_on_init << ","
+			<< m_sceneGraph.at(i).play_in_editor << ","
+			<< m_sceneGraph.at(i).min_dist << ","
+			<< m_sceneGraph.at(i).max_dist << ","
+			<< m_sceneGraph.at(i).camera << ","
+			<< m_sceneGraph.at(i).path_node << ","
+			<< m_sceneGraph.at(i).path_node_start << ","
+			<< m_sceneGraph.at(i).path_node_end << ","
+			<< m_sceneGraph.at(i).parent_id << ","
+			<< m_sceneGraph.at(i).editor_wireframe << ","
+			<< m_sceneGraph.at(i).name << ")";
+
+		std::string sqlCommand2 = command.str();
+		rc = sqlite3_prepare_v2(m_databaseConnection, sqlCommand2.c_str(), -1, &pResults, 0);
+		sqlite3_step(pResults);	
+	}*/
 }
 
 void ToolMain::onActionSaveTerrain()
