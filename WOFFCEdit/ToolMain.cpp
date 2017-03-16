@@ -171,7 +171,7 @@ void ToolMain::onActionLoad()
 
 void ToolMain::onActionSave()
 {
-/*	//SQL
+	//SQL
 	int rc;
 	char *sqlCommand;
 	char *ErrMSG = 0;
@@ -191,10 +191,11 @@ void ToolMain::onActionSave()
 	for (int i = 0; i < numObjects; i++)
 	{
 		std::stringstream command;
-		command << "INSERT INTO Objects (" << m_sceneGraph.at(i).ID << ","
-			<< m_sceneGraph.at(i).chunk_ID << ","
-			<< m_sceneGraph.at(i).model_path << ","
-			<< m_sceneGraph.at(i).tex_diffuse_path << ","
+		command << "INSERT INTO Objects " 
+			<<"VALUES(" << m_sceneGraph.at(i).ID << ","
+			<< m_sceneGraph.at(i).chunk_ID  << ","
+			<< "'" << m_sceneGraph.at(i).model_path <<"'" << ","
+			<< "'" << m_sceneGraph.at(i).tex_diffuse_path << "'" << ","
 			<< m_sceneGraph.at(i).posX << ","
 			<< m_sceneGraph.at(i).posY << ","
 			<< m_sceneGraph.at(i).posZ << ","
@@ -206,7 +207,7 @@ void ToolMain::onActionSave()
 			<< m_sceneGraph.at(i).scaZ << ","
 			<< m_sceneGraph.at(i).render << ","
 			<< m_sceneGraph.at(i).collision << ","
-			<< m_sceneGraph.at(i).collision_mesh << ","
+			<< "'" << m_sceneGraph.at(i).collision_mesh << "'" << ","
 			<< m_sceneGraph.at(i).collectable << ","
 			<< m_sceneGraph.at(i).destructable << ","
 			<< m_sceneGraph.at(i).health_amount << ","
@@ -220,7 +221,7 @@ void ToolMain::onActionSave()
 			<< m_sceneGraph.at(i).pivotZ << ","
 			<< m_sceneGraph.at(i).snapToGround << ","
 			<< m_sceneGraph.at(i).AINode << ","
-			<< m_sceneGraph.at(i).audio_path << ","
+			<< "'" << m_sceneGraph.at(i).audio_path << "'" << ","
 			<< m_sceneGraph.at(i).volume << ","
 			<< m_sceneGraph.at(i).pitch << ","
 			<< m_sceneGraph.at(i).pan << ","
@@ -235,12 +236,13 @@ void ToolMain::onActionSave()
 			<< m_sceneGraph.at(i).path_node_end << ","
 			<< m_sceneGraph.at(i).parent_id << ","
 			<< m_sceneGraph.at(i).editor_wireframe << ","
-			<< m_sceneGraph.at(i).name << ")";
-
+			<< "'" << m_sceneGraph.at(i).name << "'"
+			<< ")";
 		std::string sqlCommand2 = command.str();
 		rc = sqlite3_prepare_v2(m_databaseConnection, sqlCommand2.c_str(), -1, &pResults, 0);
 		sqlite3_step(pResults);	
-	}*/
+	}
+	MessageBox(NULL, L"Objects Saved", L"Notification", MB_OK);
 }
 
 void ToolMain::onActionSaveTerrain()
