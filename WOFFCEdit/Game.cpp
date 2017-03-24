@@ -399,10 +399,10 @@ void Game::BuildDisplayList(std::vector<SceneObject> * SceneGraph)
 	int numObjects = SceneGraph->size();
 	for (int i = 0; i < numObjects; i++)
 	{
+		
 		//create a temp display object that we will populate then append to the display list.
 		DisplayObject newDisplayObject;
 		
-
 		//load model
 		std::wstring modelwstr = StringToWCHART(SceneGraph->at(i).model_path);							//convect string to Wchar
 		newDisplayObject.m_model = Model::CreateFromCMO(device, modelwstr.c_str(), *m_fxFactory, true);	//get DXSDK to load model "False" for LH coordinate system (maya)
@@ -448,6 +448,7 @@ void Game::BuildDisplayList(std::vector<SceneObject> * SceneGraph)
 		newDisplayObject.m_wireframe = SceneGraph->at(i).editor_wireframe;
 		
 		m_displayList.push_back(newDisplayObject);
+		
 	}
 		
 		
@@ -500,6 +501,7 @@ void Game::CreateDeviceDependentResources()
 
     m_fxFactory = std::make_unique<EffectFactory>(device);
 	m_fxFactory->SetDirectory(L"database/data/"); //fx Factory will look in the database directory
+	m_fxFactory->SetSharing(false);	//we must set this to false otherwise it will share effects based on the initial tex loaded (When the model loads) rather than what we will change them to.
 
     m_sprites = std::make_unique<SpriteBatch>(context);
 
