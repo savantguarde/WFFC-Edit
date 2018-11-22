@@ -1,42 +1,22 @@
-﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(392,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (Win32SimpleSample.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(387,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (Win32SimpleSample.vcxproj).  This can lead to incorrect clean and rebuild behavior.
   ToolMain.cpp
   _WIN32_WINNT not defined. Defaulting to _WIN32_WINNT_MAXVER (see WinSDKVer.h)
-d:\mydocs\development\wffc-edit\woffcedit\toolmain.cpp(90): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\mydocs\development\wffc-edit\woffcedit\toolmain.cpp(91): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\mydocs\development\wffc-edit\woffcedit\toolmain.cpp(92): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\mydocs\development\wffc-edit\woffcedit\toolmain.cpp(93): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\mydocs\development\wffc-edit\woffcedit\toolmain.cpp(94): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\mydocs\development\wffc-edit\woffcedit\toolmain.cpp(95): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\mydocs\development\wffc-edit\woffcedit\toolmain.cpp(96): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\mydocs\development\wffc-edit\woffcedit\toolmain.cpp(97): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\mydocs\development\wffc-edit\woffcedit\toolmain.cpp(98): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\mydocs\development\wffc-edit\woffcedit\toolmain.cpp(99): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
-d:\mydocs\development\wffc-edit\woffcedit\toolmain.cpp(100): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
-d:\mydocs\development\wffc-edit\woffcedit\toolmain.cpp(102): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
-d:\mydocs\development\wffc-edit\woffcedit\toolmain.cpp(103): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
-d:\mydocs\development\wffc-edit\woffcedit\toolmain.cpp(105): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
-d:\mydocs\development\wffc-edit\woffcedit\toolmain.cpp(106): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
-d:\mydocs\development\wffc-edit\woffcedit\toolmain.cpp(107): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
-d:\mydocs\development\wffc-edit\woffcedit\toolmain.cpp(108): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
-d:\mydocs\development\wffc-edit\woffcedit\toolmain.cpp(109): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
-d:\mydocs\development\wffc-edit\woffcedit\toolmain.cpp(110): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\mydocs\development\wffc-edit\woffcedit\toolmain.cpp(111): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\mydocs\development\wffc-edit\woffcedit\toolmain.cpp(112): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\mydocs\development\wffc-edit\woffcedit\toolmain.cpp(113): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
-d:\mydocs\development\wffc-edit\woffcedit\toolmain.cpp(114): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
-d:\mydocs\development\wffc-edit\woffcedit\toolmain.cpp(116): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\mydocs\development\wffc-edit\woffcedit\toolmain.cpp(117): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\mydocs\development\wffc-edit\woffcedit\toolmain.cpp(118): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-d:\mydocs\development\wffc-edit\woffcedit\toolmain.cpp(119): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
-d:\mydocs\development\wffc-edit\woffcedit\toolmain.cpp(120): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
-d:\mydocs\development\wffc-edit\woffcedit\toolmain.cpp(121): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
-d:\mydocs\development\wffc-edit\woffcedit\toolmain.cpp(122): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-d:\mydocs\development\wffc-edit\woffcedit\toolmain.cpp(123): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-d:\mydocs\development\wffc-edit\woffcedit\toolmain.cpp(124): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
-d:\mydocs\development\wffc-edit\woffcedit\toolmain.cpp(125): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
-d:\mydocs\development\wffc-edit\woffcedit\toolmain.cpp(126): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
-d:\mydocs\development\wffc-edit\woffcedit\toolmain.cpp(127): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
-d:\mydocs\development\wffc-edit\woffcedit\toolmain.cpp(129): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
-d:\mydocs\development\wffc-edit\woffcedit\toolmain.cpp(156): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
-d:\mydocs\development\wffc-edit\woffcedit\toolmain.cpp(157): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
-  Win32SimpleSample.vcxproj -> D:\mydocs\Development\WFFC-Edit\WOFFCEdit\Debug\WoFEdit.exe
+c:\programming\wffc\woffcedit\toolmain.cpp(91): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\programming\wffc\woffcedit\toolmain.cpp(92): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\programming\wffc\woffcedit\toolmain.cpp(93): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\programming\wffc\woffcedit\toolmain.cpp(94): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\programming\wffc\woffcedit\toolmain.cpp(95): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\programming\wffc\woffcedit\toolmain.cpp(96): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\programming\wffc\woffcedit\toolmain.cpp(97): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\programming\wffc\woffcedit\toolmain.cpp(98): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\programming\wffc\woffcedit\toolmain.cpp(99): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\programming\wffc\woffcedit\toolmain.cpp(111): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\programming\wffc\woffcedit\toolmain.cpp(112): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\programming\wffc\woffcedit\toolmain.cpp(113): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\programming\wffc\woffcedit\toolmain.cpp(117): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\programming\wffc\woffcedit\toolmain.cpp(118): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\programming\wffc\woffcedit\toolmain.cpp(119): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\programming\wffc\woffcedit\toolmain.cpp(123): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\programming\wffc\woffcedit\toolmain.cpp(124): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+  Win32SimpleSample.vcxproj -> C:\Programming\WFFC\WOFFCEdit\Debug\WoFEdit.exe
+  Win32SimpleSample.vcxproj -> C:\Programming\WFFC\WOFFCEdit\Debug\WoFEdit.pdb (Partial PDB)
