@@ -55,9 +55,6 @@ public:
 	void NewAudioDevice();
 #endif
 
-	// Properties
-	void GetDefaultSize(int& width, int& height) const;
-
 private:
 
 	void Update(DX::StepTimer const& timer);

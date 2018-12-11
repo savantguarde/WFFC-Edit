@@ -482,12 +482,7 @@ void Game::NewAudioDevice()
 }
 #endif
 
-// Properties
-void Game::GetDefaultSize(int& width, int& height) const
-{
-    width = 800;
-    height = 600;
-}
+
 #pragma endregion
 
 #pragma region Direct3D Resources

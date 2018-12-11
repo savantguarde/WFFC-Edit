@@ -26,17 +26,18 @@ BOOL MFCMain::InitInstance()
 					NULL
 				);
 
-	//get the rect from the MFC window so we can get its dimensions
-//	m_toolHandle = Frame->GetSafeHwnd();						//handle of main window
-	m_toolHandle = m_frame->m_DirXView.GetSafeHwnd();				//handle of directX child window
-	m_frame->m_DirXView.GetWindowRect(&WindowRECT);
-	m_width = WindowRECT.Width();
-	m_height = WindowRECT.Height();
-
+	//show and set the window to run and update. 
 	m_frame->ShowWindow(SW_SHOW);
 	m_frame->UpdateWindow();
 
-	m_ToolSystem.onActionInitialise(m_toolHandle, 800, 600);
+
+	//get the rect from the MFC window so we can get its dimensions
+	m_toolHandle = m_frame->m_DirXView.GetSafeHwnd();				//handle of directX child window
+	m_frame->m_DirXView.GetClientRect(&WindowRECT);
+	m_width		= WindowRECT.Width();
+	m_height	= WindowRECT.Height();
+
+	m_ToolSystem.onActionInitialise(m_toolHandle, m_width, m_height);
 
 	return TRUE;
 }
