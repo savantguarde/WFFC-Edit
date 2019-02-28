@@ -44,6 +44,13 @@ public:
 	int parent_id;
 	bool editor_wireframe;
 	std::string name;
+	int light_type;
+	float light_diffuse_r, light_diffuse_g, light_diffuse_b;
+	float light_specular_r, light_specular_g, light_specular_b;
+	float light_spot_cutoff;
+	float light_constant;
+	float light_linear;
+	float light_quadratic;
 
 };
 

@@ -444,8 +444,20 @@ void Game::BuildDisplayList(std::vector<SceneObject> * SceneGraph)
 		newDisplayObject.m_scale.z = SceneGraph->at(i).scaZ;
 
 		//set wireframe / render flags
-		newDisplayObject.m_render = SceneGraph->at(i).editor_render;
-		newDisplayObject.m_wireframe = SceneGraph->at(i).editor_wireframe;
+		newDisplayObject.m_render		= SceneGraph->at(i).editor_render;
+		newDisplayObject.m_wireframe	= SceneGraph->at(i).editor_wireframe;
+
+		newDisplayObject.m_light_type		= SceneGraph->at(i).light_type;
+		newDisplayObject.m_light_diffuse_r	= SceneGraph->at(i).light_diffuse_r;
+		newDisplayObject.m_light_diffuse_g	= SceneGraph->at(i).light_diffuse_g;
+		newDisplayObject.m_light_diffuse_b	= SceneGraph->at(i).light_diffuse_b;
+		newDisplayObject.m_light_specular_r = SceneGraph->at(i).light_specular_r;
+		newDisplayObject.m_light_specular_g = SceneGraph->at(i).light_specular_g;
+		newDisplayObject.m_light_specular_b = SceneGraph->at(i).light_specular_b;
+		newDisplayObject.m_light_spot_cutoff = SceneGraph->at(i).light_spot_cutoff;
+		newDisplayObject.m_light_constant	= SceneGraph->at(i).light_constant;
+		newDisplayObject.m_light_linear		= SceneGraph->at(i).light_linear;
+		newDisplayObject.m_light_quadratic	= SceneGraph->at(i).light_quadratic;
 		
 		m_displayList.push_back(newDisplayObject);
 		

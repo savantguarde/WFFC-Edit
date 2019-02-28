@@ -41,6 +41,13 @@ SceneObject::SceneObject()
 	parent_id =0;
 	editor_wireframe=false;
 	name ="";
+	light_type = 1;
+	light_diffuse_r = 1;	light_diffuse_g = 1;	light_diffuse_b = 1;
+	light_specular_r = 1;	light_specular_g = 1;	light_specular_b = 1;
+	light_spot_cutoff = 1;
+	light_constant = 1;
+	light_linear = 1;
+	light_quadratic = 1;
 }
 
 

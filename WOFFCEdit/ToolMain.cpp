@@ -129,7 +129,20 @@ void ToolMain::onActionLoad()
 		newSceneObject.parent_id = sqlite3_column_int(pResults, 42);
 		newSceneObject.editor_wireframe = sqlite3_column_int(pResults, 43);
 		newSceneObject.name = reinterpret_cast<const char*>(sqlite3_column_text(pResults, 44));
-		
+
+		newSceneObject.light_type = sqlite3_column_int(pResults, 45);
+		newSceneObject.light_diffuse_r = sqlite3_column_double(pResults, 46);
+		newSceneObject.light_diffuse_g = sqlite3_column_double(pResults, 47);
+		newSceneObject.light_diffuse_b = sqlite3_column_double(pResults, 48);
+		newSceneObject.light_specular_r = sqlite3_column_double(pResults, 49);
+		newSceneObject.light_specular_g = sqlite3_column_double(pResults, 50);
+		newSceneObject.light_specular_b = sqlite3_column_double(pResults, 51);
+		newSceneObject.light_spot_cutoff = sqlite3_column_double(pResults, 52);
+		newSceneObject.light_constant = sqlite3_column_double(pResults, 53);
+		newSceneObject.light_linear = sqlite3_column_double(pResults, 54);
+		newSceneObject.light_quadratic = sqlite3_column_double(pResults, 55);
+	
+
 		//send completed object to scenegraph
 		m_sceneGraph.push_back(newSceneObject);
 	}
@@ -237,7 +250,20 @@ void ToolMain::onActionSave()
 			<< m_sceneGraph.at(i).path_node_end << ","
 			<< m_sceneGraph.at(i).parent_id << ","
 			<< m_sceneGraph.at(i).editor_wireframe << ","
-			<< "'" << m_sceneGraph.at(i).name << "'"
+			<< "'" << m_sceneGraph.at(i).name << "'" << ","
+
+			<< m_sceneGraph.at(i).light_type << ","
+			<< m_sceneGraph.at(i).light_diffuse_r << ","
+			<< m_sceneGraph.at(i).light_diffuse_g << ","
+			<< m_sceneGraph.at(i).light_diffuse_b << ","
+			<< m_sceneGraph.at(i).light_specular_r << ","
+			<< m_sceneGraph.at(i).light_specular_g << ","
+			<< m_sceneGraph.at(i).light_specular_b << ","
+			<< m_sceneGraph.at(i).light_spot_cutoff << ","
+			<< m_sceneGraph.at(i).light_constant << ","
+			<< m_sceneGraph.at(i).light_linear << ","
+			<< m_sceneGraph.at(i).light_quadratic
+
 			<< ")";
 		std::string sqlCommand2 = command.str();
 		rc = sqlite3_prepare_v2(m_databaseConnection, sqlCommand2.c_str(), -1, &pResults, 0);
